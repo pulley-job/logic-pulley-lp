@@ -969,7 +969,16 @@ body:hover .cursor-glow {
 }
 
 .service-icon {
-    font-size: 1.75rem;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.service-icon svg {
+    width: 100%;
+    height: 100%;
 }
 
 .service-card h4 {
