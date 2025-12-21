@@ -710,8 +710,17 @@ body:hover .cursor-glow {
 }
 
 .problem-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    width: 56px;
+    height: 56px;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.problem-icon svg {
+    width: 100%;
+    height: 100%;
 }
 
 .problem-card h3 {
