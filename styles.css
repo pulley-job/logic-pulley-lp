@@ -777,9 +777,29 @@ body:hover .cursor-glow {
     opacity: 1;
 }
 
+.problem-icon-wrapper {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(52, 211, 153, 0.1);
+    border-radius: 16px;
+    margin-bottom: 1.5rem;
+}
+
 .problem-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.problem-icon svg {
+    width: 100%;
+    height: 100%;
+    color: var(--primary-400);
 }
 
 .problem-card h3 {
