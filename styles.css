@@ -72,6 +72,9 @@
 html {
     scroll-behavior: smooth;
     font-size: 16px;
+    width: 100%;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -79,9 +82,21 @@ body {
     background-color: var(--neutral-950);
     color: var(--neutral-100);
     line-height: 1.7;
-    overflow-x: hidden;
+    width: 100%;
+    /* max-width: 100vw; Removed to prevent scrollbar width issues */
+    position: relative;
+    touch-action: pan-y;
+    /* Disables horizontal scroll gestures */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+/* Page Wrapper - iOS overflow fix */
+.page-wrapper {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    position: relative;
 }
 
 a {
@@ -124,6 +139,7 @@ body:hover .cursor-glow {
 /* Container */
 .container {
     max-width: var(--container-max);
+    width: 100%;
     margin: 0 auto;
     padding: 0 var(--container-padding);
 }
@@ -251,7 +267,7 @@ body:hover .cursor-glow {
     .nav-links {
         position: fixed;
         top: 0;
-        right: -100%;
+        right: 0;
         width: 80%;
         max-width: 320px;
         height: 100vh;
@@ -259,11 +275,31 @@ body:hover .cursor-glow {
         flex-direction: column;
         justify-content: center;
         gap: 2rem;
-        transition: var(--transition-slow);
+        z-index: 1001;
+        /* Ensure above everything */
+
+        /* Hidden State */
+        transform: translateX(100%);
+        visibility: hidden;
+        opacity: 0;
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+            opacity 0.3s ease,
+            visibility 0s linear 0.4s;
+        /* Delay hiding visibility */
+
+        /* Added to prevent scroll influence */
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
     }
 
     .nav-links.active {
-        right: 0;
+        /* Active State */
+        transform: translateX(0);
+        visibility: visible;
+        opacity: 1;
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+            opacity 0.3s ease,
+            visibility 0s linear 0s;
+        /* Show immediately */
     }
 
     .nav-link {
@@ -288,6 +324,7 @@ body:hover .cursor-glow {
     position: absolute;
     inset: 0;
     z-index: 0;
+    overflow: hidden;
 }
 
 .grid-lines {
@@ -376,6 +413,36 @@ body:hover .cursor-glow {
 
     75% {
         transform: translate(-30px, -20px) scale(1.02);
+    }
+}
+
+/* スマホで浮遊図形のサイズを縮小 */
+@media (max-width: 768px) {
+    .shape-1 {
+        width: 250px;
+        height: 250px;
+        right: -20%;
+    }
+
+    .shape-2 {
+        width: 200px;
+        height: 200px;
+        left: -15%;
+    }
+
+    .shape-3 {
+        width: 150px;
+        height: 150px;
+    }
+
+    .shape-4 {
+        width: 180px;
+        height: 180px;
+    }
+
+    .shape-5 {
+        width: 120px;
+        height: 120px;
     }
 }
 
@@ -669,6 +736,7 @@ body:hover .cursor-glow {
     padding: var(--section-padding) 0;
     background: var(--neutral-950);
     position: relative;
+    overflow: hidden;
 }
 
 .problem-grid {
@@ -710,17 +778,8 @@ body:hover .cursor-glow {
 }
 
 .problem-icon {
-    width: 56px;
-    height: 56px;
-    margin-bottom: 1.25rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.problem-icon svg {
-    width: 100%;
-    height: 100%;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
 }
 
 .problem-card h3 {
@@ -778,6 +837,7 @@ body:hover .cursor-glow {
 .services-section {
     padding: var(--section-padding) 0;
     background: linear-gradient(180deg, var(--neutral-950) 0%, var(--neutral-900) 100%);
+    overflow: hidden;
 }
 
 .services-showcase {
@@ -969,17 +1029,7 @@ body:hover .cursor-glow {
 }
 
 .service-icon {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px;
-}
-
-.service-icon svg {
-    width: 100%;
-    height: 100%;
+    font-size: 1.75rem;
 }
 
 .service-card h4 {
@@ -1002,6 +1052,7 @@ body:hover .cursor-glow {
     padding: var(--section-padding) 0;
     background: var(--neutral-900);
     position: relative;
+    overflow: hidden;
 }
 
 .features-section::before {
@@ -1010,7 +1061,8 @@ body:hover .cursor-glow {
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 600px;
+    width: 100%;
+    max-width: 600px;
     height: 600px;
     background: radial-gradient(circle, rgba(52, 211, 153, 0.08) 0%, transparent 70%);
     pointer-events: none;
@@ -1018,7 +1070,7 @@ body:hover .cursor-glow {
 
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
     position: relative;
 }
@@ -1093,6 +1145,7 @@ body:hover .cursor-glow {
 .process-section {
     padding: var(--section-padding) 0;
     background: linear-gradient(180deg, var(--neutral-900) 0%, var(--neutral-950) 100%);
+    overflow: hidden;
 }
 
 .process-timeline {
@@ -1189,6 +1242,7 @@ body:hover .cursor-glow {
 .profile-section {
     padding: var(--section-padding) 0;
     background: var(--neutral-950);
+    overflow: hidden;
 }
 
 .profile-content {
@@ -1494,6 +1548,7 @@ body:hover .cursor-glow {
     padding: 4rem 0 2rem;
     background: var(--neutral-950);
     border-top: 1px solid rgba(255, 255, 255, 0.05);
+    overflow: hidden;
 }
 
 .footer-content {
@@ -2365,4 +2420,21 @@ body:hover .cursor-glow {
 
 [data-aos="fade-right"].aos-animate {
     transform: translateX(0);
+}
+
+/* スマホでCTA装飾図形を縮小 */
+@media (max-width: 768px) {
+    .cta-shape-1 {
+        width: 300px;
+        height: 300px;
+        left: -100px;
+        /* Use fixed pixels closer to edge */
+    }
+
+    .cta-shape-2 {
+        width: 250px;
+        height: 250px;
+        right: -100px;
+        /* Use fixed pixels closer to edge */
+    }
 }
