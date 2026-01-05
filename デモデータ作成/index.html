@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: #f8f9fa;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+        }
+
+        .nav-tabs .nav-link.active {
+            font-weight: bold;
+            border-bottom: 3px solid #0d6efd;
+            color: #0d6efd;
+            background: transparent;
+        }
+
+        .app-content {
+            display: none;
+            height: 100%;
+        }
+
+        .app-content.active {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+        }
+
+        .step-item {
+            padding: 12px;
+            margin-bottom: 8px;
+            color: #bdc3c7;
+            border-left: 4px solid transparent;
+            cursor: default;
+        }
+
+        .step-item.active {
+            color: white;
+            font-weight: bold;
+            border-left-color: #3498db;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .wizard-area {
+            flex-grow: 1;
+            padding: 25px;
+            overflow-y: auto;
+            background: white;
+        }
+
+        .wizard-screen {
+            display: none;
+        }
+
+        .wizard-screen.visible {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .student-row {
+            padding: 10px;
+            border-bottom: 1px solid #f1f1f1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .student-row:hover {
+            background: #f8f9fa;
+        }
+
+        .student-row.active {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+        }
+
+        .student-row.edited .name-label::after {
+            content: '●';
+            color: #e74c3c;
+            margin-left: 5px;
+            font-size: 10px;
+        }
+
+        .comment-area {
+            border: 2px solid #2196f3;
+            background: #fbfdff;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="nav nav-tabs px-4 pt-2 bg-white border-bottom shadow-sm">
+        <li class="nav-item"><a class="nav-link" onclick="switchTab('import')" id="t-import"><i
+                    class="bi bi-cloud-upload"></i> データ登録</a></li>
+        <li class="nav-item"><a class="nav-link active" onclick="switchTab('mail')" id="t-mail"><i
+                    class="bi bi-send"></i> 通知ウィザード</a></li>
+        <li class="nav-item"><a class="nav-link" onclick="switchTab('template')" id="t-template"><i
+                    class="bi bi-journal-text"></i> テンプレート管理</a></li>
+        <li class="nav-item"><a class="nav-link" onclick="switchTab('settings')" id="t-settings"><i
+                    class="bi bi-gear"></i> 設定</a></li>
+    </ul>
+
+    <!-- 1. Import Tab -->
+    <div id="tab-import" class="app-content">
+        <div class="container py-5 text-center">
+            <div class="card p-5 mx-auto shadow-sm" style="max-width:600px">
+                <h3 class="mb-4 text-secondary">成績データ登録</h3>
+                <div class="alert alert-info small text-start">
+                    <i class="bi bi-info-circle"></i>
+                    登録されたデータは、MasterDBに加え、名簿リスト(StudentList)と各学生ごとの個別スプレッドシート（設定タブで指定したフォルダ内）にも自動反映されます。
+                </div>
+
+                <!-- テンプレートDLボタン -->
+                <div class="text-end mb-3">
+                    <button class="btn btn-outline-success btn-sm" onclick="downloadTemplate()">
+                        <i class="bi bi-file-earmark-spreadsheet"></i> 登録用テンプレート(雛形)をDL
+                    </button>
+                </div>
+
+                <form id="uForm">
+                    <input class="form-control mb-3" name="examName" placeholder="試験名 (例: 第1回 模擬試験)" required>
+                    <input type="date" class="form-control mb-4" name="examDate" required>
+                    <div class="p-5 border border-2 border-primary rounded bg-light"
+                        onclick="document.getElementById('f').click()"
+                        style="cursor:pointer; border-style:dashed!important;">
+                        <div class="display-4 text-primary"><i class="bi bi-file-earmark-excel"></i></div>
+                        <p class="mt-2 text-muted">Excelファイルをドラッグ&ドロップ<br>またはクリックして選択</p>
+                        <input type="file" id="f" name="fileData" accept=".xlsx,.csv" style="display:none"
+                            onchange="this.nextElementSibling.innerText=this.files[0].name">
+                        <div class="mt-2 text-dark fw-bold"></div>
+                    </div>
+                    <button type="button" class="btn btn-primary w-100 mt-4 py-2"
+                        onclick="doUpload(this)">アップロード実行</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Wizard Tab -->
+    <div id="tab-mail" class="app-content active">
+        <div class="sidebar">
+            <div class="step-item active" id="s1-nav">1. 対象選択</div>
+            <div class="step-item" id="s2-nav">2. 内容編集</div>
+            <div class="step-item" id="s3-nav">3. 送信・出力</div>
+        </div>
+        <div class="wizard-area">
+            <div id="scr-1" class="wizard-screen visible">
+                <h4 class="mb-4">クラスと定型文の選択</h4>
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">対象クラス</label>
+                        <select id="clsSel" class="form-select" onchange="updCnt()">
+                            <option value="ALL">全クラス</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold text-primary"><i class="bi bi-chat-quote"></i> 成績表コメントの一括設定
+                            (任意)</label>
+                        <select id="initCmtSel" class="form-select text-primary" style="background-color:#f0f8ff;">
+                            <option value="">(個別に入力する)</option>
+                        </select>
+                        <small class="text-muted">※選択すると全員にこのコメントが初期セットされます</small>
+                    </div>
+                </div>
+
+                <p class="lead border-bottom pb-2">使用するメールテンプレートを選択</p>
+                <div id="tmplBox" class="row g-3"></div>
+            </div>
+            <div id="scr-2" class="wizard-screen">
+                <div class="d-flex justify-content-between mb-3 align-items-center">
+                    <h4 class="m-0">内容の確認・修正</h4>
+                    <button class="btn btn-success px-4" onclick="go(3)">確認完了 <i class="bi bi-arrow-right"></i></button>
+                </div>
+                <div class="d-flex border rounded" style="height: 75vh;">
+                    <div class="col-3 border-end bg-light d-flex flex-column">
+                        <div class="p-2 border-bottom bg-white">
+                            <input class="form-control mb-2" placeholder="名前検索..." oninput="renderList(this.value)">
+                            <div class="form-check ms-1"><input class="form-check-input" type="checkbox" id="chkAll"
+                                    onchange="toggleAll(this)"><label class="form-check-label small" for="chkAll">全員選択 /
+                                    解除</label></div>
+                        </div>
+                        <div id="sList" class="flex-grow-1 overflow-auto"></div>
+                    </div>
+                    <div class="col-9 p-4 d-flex flex-column overflow-auto">
+                        <h4 id="eName" class="text-primary mb-4"></h4>
+                        <div class="mb-4">
+                            <label class="small fw-bold text-muted">✉️ メール通知 (件名・本文)</label>
+                            <input id="eSub" class="form-control mb-1 form-control-sm">
+                            <textarea id="eBody" class="form-control form-control-sm" rows="4"
+                                oninput="mark()"></textarea>
+                        </div>
+                        <div class="flex-grow-1 d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-end mb-1">
+                                <label class="fw-bold text-primary"><i class="bi bi-file-earmark-text"></i> 成績表用
+                                    担任コメント</label>
+                                <div class="d-flex gap-2">
+                                    <select class="form-select form-select-sm" id="cmtTmplSel"
+                                        onchange="applyCmtTmpl(this.value)" style="width:180px">
+                                        <option value="">定型文から入力...</option>
+                                    </select>
+                                    <button class="btn btn-sm btn-info text-white" onclick="openAI('comment')"><i
+                                            class="bi bi-stars"></i> AI作成</button>
+                                </div>
+                            </div>
+                            <textarea id="eComment" class="form-control comment-area flex-grow-1 p-3"
+                                placeholder="成績表に載せる正式なコメントを入力..." oninput="mark()"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="scr-3" class="wizard-screen text-center">
+                <div class="py-5">
+                    <h3 class="mb-3">処理の実行</h3>
+                    <p class="mb-4">対象人数: <span id="cntAll" class="fw-bold fs-4">0</span> 名 (選択済み)</p>
+                    <div class="d-inline-block text-start bg-light p-4 rounded mb-5">
+                        <label class="small fw-bold">対象の試験名 (記録用)</label>
+                        <input id="targetExam" class="form-control fw-bold" placeholder="例: 第1回模試">
+                    </div>
+                    <div class="row justify-content-center g-4">
+                        <div class="col-md-4">
+                            <button class="btn btn-primary w-100 py-3 shadow-sm" id="btnSend" onclick="send()">
+                                <i class="bi bi-envelope-check fs-4 d-block mb-1"></i> メール送信
+                            </button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-danger w-100 py-3 shadow-sm" id="btnPdf" onclick="makePDF()">
+                                <i class="bi bi-file-pdf fs-4 d-block mb-1"></i> PDF作成 (QR付)
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <button class="btn btn-link text-secondary" onclick="go(2)">編集画面に戻る</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Template Tab -->
+    <div id="tab-template" class="app-content">
+        <div class="container-fluid py-3 h-100 d-flex flex-column">
+            <div class="row flex-grow-1">
+                <div class="col-md-3 border-end overflow-auto h-100 bg-white pt-3">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="m-0">登録一覧</h5>
+                        <button class="btn btn-primary btn-sm rounded-pill" onclick="newTmpl()"><i
+                                class="bi bi-plus-lg"></i> 新規</button>
+                    </div>
+                    <select class="form-select mb-3" onchange="filterTmpl(this.value)">
+                        <option value="ALL">すべて表示</option>
+                        <option value="メール">メール用</option>
+                        <option value="コメント">コメント用</option>
+                    </select>
+                    <div class="list-group list-group-flush" id="tmplList"></div>
+                </div>
+                <div class="col-md-9 h-100 overflow-auto pt-3 px-5">
+                    <div id="tmplEditor" style="display:none">
+                        <h4 class="border-bottom pb-3 mb-4">テンプレート編集</h4>
+                        <input type="hidden" id="tmId">
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">種類</label>
+                                <select class="form-select" id="tmType" onchange="toggleSubj()">
+                                    <option value="メール">メール用</option>
+                                    <option value="コメント">成績表コメント用</option>
+                                </select>
+                            </div>
+                            <div class="col-md-8">
+                                <label class="form-label fw-bold">テンプレート名 (管理用)</label>
+                                <input type="text" class="form-control" id="tmName">
+                            </div>
+                        </div>
+                        <div class="mb-3" id="tmSubjBox">
+                            <label class="form-label fw-bold">件名</label>
+                            <input type="text" class="form-control" id="tmSubj">
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between">
+                                <label class="form-label fw-bold">本文</label>
+                                <button class="btn btn-sm btn-outline-info" onclick="openAI('template')"><i
+                                        class="bi bi-stars"></i> AIドラフト作成</button>
+                            </div>
+                            <textarea class="form-control" id="tmBody" rows="10"></textarea>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-success px-4" onclick="saveTmpl()">保存する</button>
+                            <button class="btn btn-outline-danger" onclick="delTmpl()">削除</button>
+                        </div>
+                    </div>
+                    <div id="tmplEmpty" class="text-center text-muted mt-5 pt-5">
+                        <i class="bi bi-journal-plus display-1"></i>
+                        <p class="mt-3 lead">左のリストから選択するか、<br>新規作成してください</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Settings Tab -->
+    <div id="tab-settings" class="app-content">
+        <div class="container py-5">
+            <div class="card p-5 mx-auto shadow-sm" style="max-width:800px">
+                <h3 class="mb-4 text-secondary"><i class="bi bi-gear"></i> システム設定</h3>
+
+                <div class="mb-5">
+                    <label class="form-label fw-bold">📂 個別スプレッドシート保存先フォルダ</label>
+                    <p class="text-muted small">
+                        生徒ごとの個別スプレッドシート（Looker Studio連携用）を保存するGoogleドライブフォルダを指定します。<br>
+                        ※指定しない場合、個別シートは作成されず、MasterDBへの登録のみが行われます。
+                    </p>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-folder2-open"></i></span>
+                        <input type="text" class="form-control" id="stFolderUrl"
+                            placeholder="https://drive.google.com/drive/folders/...">
+                    </div>
+                    <div class="form-text">ブラウザのアドレスバーからフォルダのURLをコピーして貼り付けてください。</div>
+                </div>
+
+                <hr class="my-4">
+
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-primary px-5" onclick="saveSystemSettings()" id="btnSaveSet">設定を保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Modal -->
+    <div class="modal fade" id="aiModal" data-bs-backdrop="static">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-info text-white">
+                    <h5 class="modal-title"><i class="bi bi-robot"></i> AIアシスタント</h5>
+                </div>
+                <div class="modal-body row">
+                    <div class="col-5 border-end">
+                        <label id="aiLabel" class="form-label fw-bold">指示・メモ</label>
+                        <textarea id="aiInst" class="form-control" rows="8"
+                            placeholder="例: 成績は優秀だが遅刻が多いことを指摘して..."></textarea>
+                        <button class="btn btn-primary w-100 mt-3" onclick="runAI()" id="aiBtn">生成する <i
+                                class="bi bi-caret-right-fill"></i></button>
+                    </div>
+                    <div class="col-7 bg-light p-3 rounded position-relative">
+                        <label class="form-label fw-bold small text-muted">生成結果</label>
+                        <div id="aiRes" style="white-space: pre-wrap;" class="text-dark">ここに結果が表示されます...</div>
+                    </div>
+                </div>
+                <div class="modal-footer"><button class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button><button
+                        class="btn btn-primary" onclick="applyAI()">この文章を採用</button></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // --- Logic is same as Ver 8.0, confirming connections ---
+        let allS = [], allTmpls = [], drafts = [], cur = -1, aiTxt = "", lastExam = "", aiMode = "";
+
+        window.onload = () => {
+            google.script.run.withSuccessHandler(d => { allS = d; initCls(); }).getStudentEmailList();
+            google.script.run.withSuccessHandler(s => { if (s.folderUrl) document.getElementById('stFolderUrl').value = s.folderUrl; }).getSettings();
+            loadTmpls();
+        };
+        function switchTab(t) {
+            document.querySelectorAll('.app-content').forEach(e => e.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(e => e.classList.remove('active'));
+            document.getElementById('tab-' + t).classList.add('active');
+            document.getElementById('t-' + t).classList.add('active');
+        }
+        // Template
+        function loadTmpls() { google.script.run.withSuccessHandler(d => { allTmpls = d; renderTmplList(); renderWizardTmpls(); }).getAllTemplates(); }
+        function renderTmplList(f = "ALL") {
+            const l = document.getElementById('tmplList'); l.innerHTML = "";
+            allTmpls.forEach((t, i) => {
+                if (f !== "ALL" && t.type !== f) return;
+                const icon = t.type === 'メール' ? 'envelope' : 'chat-text';
+                l.innerHTML += `<button class="list-group-item list-group-item-action d-flex align-items-center gap-2" onclick="editTmpl(${i})"><i class="bi bi-${icon} text-muted"></i> ${t.name}</button>`;
+            });
+        }
+        function filterTmpl(v) { renderTmplList(v); }
+        function newTmpl() {
+            document.getElementById('tmplEmpty').style.display = 'none'; document.getElementById('tmplEditor').style.display = 'block';
+            document.getElementById('tmId').value = "-1"; document.getElementById('tmName').value = ""; document.getElementById('tmSubj').value = ""; document.getElementById('tmBody').value = "";
+        }
+        function editTmpl(i) {
+            const t = allTmpls[i];
+            document.getElementById('tmplEmpty').style.display = 'none'; document.getElementById('tmplEditor').style.display = 'block';
+            document.getElementById('tmId').value = i; document.getElementById('tmType').value = t.type; document.getElementById('tmName').value = t.name; document.getElementById('tmSubj').value = t.subject; document.getElementById('tmBody').value = t.body; toggleSubj();
+        }
+        function toggleSubj() { document.getElementById('tmSubjBox').style.display = (document.getElementById('tmType').value === 'メール') ? 'block' : 'none'; }
+        function saveTmpl() {
+            const d = { action: (parseInt(document.getElementById('tmId').value) === -1) ? 'add' : 'edit', id: parseInt(document.getElementById('tmId').value), type: document.getElementById('tmType').value, name: document.getElementById('tmName').value, subject: document.getElementById('tmSubj').value, body: document.getElementById('tmBody').value };
+            if (!d.name || !d.body) return alert("名前と本文は必須です");
+            google.script.run.withSuccessHandler(d => { allTmpls = d; renderTmplList(); renderWizardTmpls(); alert("保存しました"); }).saveTemplate(d);
+        }
+        function delTmpl() {
+            const id = parseInt(document.getElementById('tmId').value); if (id === -1) return; if (!confirm("削除しますか？")) return;
+            google.script.run.withSuccessHandler(d => { allTmpls = d; renderTmplList(); renderWizardTmpls(); newTmpl(); alert("削除しました"); }).saveTemplate({ action: 'delete', id: id });
+        }
+        // Wizard
+        function renderWizardTmpls() {
+            const b = document.getElementById('tmplBox'); b.innerHTML = "";
+            allTmpls.filter(t => t.type === 'メール').forEach((t) => {
+                b.innerHTML += `<div class="col-6"><div class="card p-3 shadow-sm" onclick="selMain('${t.name}')" style="cursor:pointer; transition:0.2s" onmouseover="this.style.borderColor='#0d6efd'" onmouseout="this.style.borderColor='rgba(0,0,0,0.125)'"><h5 class="fw-bold text-primary">${t.name}</h5><small class="text-muted">${t.subject}</small></div></div>`;
+            });
+            // 個別選択用(Step2)と一括選択用(Step1)の両方に候補を追加
+            const s = document.getElementById('cmtTmplSel'); s.innerHTML = '<option value="">定型文から入力...</option>';
+            const is = document.getElementById('initCmtSel'); is.innerHTML = '<option value="">(個別に入力する)</option>';
+
+            allTmpls.filter(t => t.type === 'コメント').forEach(t => {
+                const op = `<option value="${t.body}">${t.name}</option>`;
+                s.innerHTML += op;
+                is.innerHTML += op;
+            });
+        }
+        function selMain(name) {
+            const t = allTmpls.find(x => x.name === name);
+            const c = document.getElementById('clsSel').value;
+            const initCmtBody = document.getElementById('initCmtSel').value; // Step1で選ばれた一括コメント
+            const tg = c === 'ALL' ? allS : allS.filter(x => x.className === c);
+
+            // メール文面適用 + コメント一括適用(あれば)
+            drafts = tg.map(x => ({
+                ...x,
+                subject: t.subject,
+                body: t.body.replace(/{氏名}/g, x.name).replace(/{URL}/g, x.url),
+                reportComment: initCmtBody || "", // ここで一括セット
+                edited: false,
+                selected: true
+            }));
+            renderList(); go(2);
+        }
+        function applyCmtTmpl(body) { if (!body || cur < 0) return; document.getElementById('eComment').value = body; mark(); document.getElementById('cmtTmplSel').value = ""; }
+        // Core
+        function doUpload(b) {
+            const f = document.getElementById('uForm'); if (!f.fileData.value) return alert("ファイル必須"); lastExam = f.examName.value; b.disabled = true; b.innerHTML = '<span class="spinner-border spinner-border-sm"></span> 処理中...';
+            google.script.run.withSuccessHandler(r => { alert(r.message); b.disabled = false; b.innerText = "アップロード実行"; if (r.success) f.reset(); }).processExcelUpload(f);
+        }
+        function initCls() { const s = document.getElementById('clsSel');[...new Set(allS.map(x => x.className))].sort().forEach(c => { s.innerHTML += `<option value="${c}">${c}</option>`; }); }
+        function go(n) {
+            document.querySelectorAll('.wizard-screen').forEach(e => e.classList.remove('visible')); document.getElementById('scr-' + n).classList.add('visible');
+            for (let i = 1; i <= 3; i++) document.getElementById('s' + i + '-nav').classList.toggle('active', i === n);
+            if (n === 3) { if (lastExam) document.getElementById('targetExam').value = lastExam; document.getElementById('cntAll').innerText = drafts.filter(d => d.selected).length; }
+        }
+        function renderList(k = "") {
+            const l = document.getElementById('sList'); l.innerHTML = "";
+            drafts.forEach((d, i) => {
+                if (k && !d.name.includes(k)) return;
+                l.innerHTML += `<div class="student-row ${i === cur ? 'active' : ''} ${d.edited ? 'edited' : ''}" onclick="edit(${i})"><input type="checkbox" class="form-check-input me-2" ${d.selected ? 'checked' : ''} onclick="event.stopPropagation();toggleSel(${i})"><span class="name-label">${d.name}</span></div>`;
+            });
+            document.getElementById('chkAll').checked = drafts.every(d => d.selected);
+        }
+        function toggleAll(chk) { const v = chk.checked; drafts.forEach(d => d.selected = v); renderList(); }
+        function toggleSel(i) { drafts[i].selected = !drafts[i].selected; document.getElementById('chkAll').checked = drafts.every(d => d.selected); }
+        function edit(i) {
+            cur = i; const d = drafts[i];
+            document.getElementById('eName').innerText = d.name; document.getElementById('eSub').value = d.subject; document.getElementById('eBody').value = d.body; document.getElementById('eComment').value = d.reportComment || "";
+            renderList();
+        }
+        function mark() { if (cur < 0) return; drafts[cur].subject = document.getElementById('eSub').value; drafts[cur].body = document.getElementById('eBody').value; drafts[cur].reportComment = document.getElementById('eComment').value; drafts[cur].edited = true; renderList(); }
+        // Settings
+        function saveSystemSettings() {
+            const url = document.getElementById('stFolderUrl').value;
+            const b = document.getElementById('btnSaveSet'); b.disabled = true; b.innerHTML = '<span class="spinner-border spinner-border-sm"></span> 保存中...';
+            google.script.run.withSuccessHandler(r => { alert(r.message); b.disabled = false; b.innerText = "設定を保存"; }).saveSettings(url);
+        }
+        // AI
+        const aiM = new bootstrap.Modal(document.getElementById('aiModal'));
+        function openAI(mode) {
+            aiMode = mode; if (mode === 'comment' && cur < 0) return;
+            document.getElementById('aiInst').value = (mode === 'comment') ? drafts[cur].reportComment : "";
+            document.getElementById('aiLabel').innerText = (mode === 'comment') ? "学生へのメモ" : "テンプレートのテーマ";
+            aiM.show();
+        }
+        function runAI() {
+            const b = document.getElementById('aiBtn'); b.disabled = true; b.innerHTML = '<span class="spinner-border spinner-border-sm"></span> 生成中...';
+            const inst = document.getElementById('aiInst').value; const name = (aiMode === 'comment') ? drafts[cur].name : "テンプレート";
+            google.script.run.withSuccessHandler(t => { aiTxt = t; document.getElementById('aiRes').innerText = t; b.disabled = false; b.innerText = "生成する"; }).refineTextWithAI({ name: name, instruction: inst, mode: aiMode, type: document.getElementById('tmType').value });
+        }
+        function applyAI() { if (aiMode === 'comment') { document.getElementById('eComment').value = aiTxt; mark(); } else { document.getElementById('tmBody').value = aiTxt; } aiM.hide(); }
+        // Final Actions
+        function getSelectedDrafts() { const t = drafts.filter(d => d.selected); if (!t.length) { alert("学生が選択されていません"); return null; } const ex = document.getElementById('targetExam').value; if (!ex) { alert("試験名を入力してください"); return null; } return { targets: t, ex: ex }; }
+        function send() {
+            const d = getSelectedDrafts(); if (!d) return; if (!confirm("メール送信を実行しますか？")) return;
+            const b = document.getElementById('btnSend'); b.disabled = true; b.innerHTML = '<span class="spinner-border spinner-border-sm"></span> 送信中...';
+            google.script.run.withSuccessHandler(r => { alert(r.message); b.innerHTML = '<i class="bi bi-envelope-check"></i> メール送信'; b.disabled = false; }).sendBatchEmails(d.targets, d.ex);
+        }
+        function makePDF() {
+            const d = getSelectedDrafts(); if (!d) return; if (!confirm("PDF作成を実行しますか？\n(少し時間がかかります)")) return;
+            const b = document.getElementById('btnPdf'); b.disabled = true; b.innerHTML = '<span class="spinner-border spinner-border-sm"></span> PDF作成中...';
+            google.script.run.withSuccessHandler(r => {
+                if (r.success) { if (confirm(r.message + "\nフォルダを開きますか？")) window.open(r.url, '_blank'); } else { alert(r.message); }
+                b.innerHTML = '<i class="bi bi-file-pdf"></i> PDF作成'; b.disabled = false;
+            }).createPDFBundle(d.targets, d.ex);
+        }
+
+        // Template DL
+        function downloadTemplate() {
+            // Excelで文字化けしないようBOM(\ufeff)を付与したCSVを作成
+            const headers = ["クラス", "ID", "氏名", "学生Mail", "保護者Mail", "専門基礎", "運動学", "臨床心理学", "リハ概論"];
+            const sample = ["3FA", "2024001", "山田 太郎", "student@example.com", "parent@example.com", "80", "75", "90", "85"];
+            const csv = "\ufeff" + headers.join(",") + "\n" + sample.join(",");
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", "成績登録テンプレート.csv");
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+
+</html>

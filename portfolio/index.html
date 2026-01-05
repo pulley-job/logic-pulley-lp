@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masaya Furui - Digital Business Card</title>
+    <meta name="description" content="Portfolio of Masaya Furui - Physical Therapist & Google Certified Trainer">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-decorations">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero glass-panel">
+            <div class="hero-content">
+                <div class="profile-avatar">
+                   <!-- Placeholder for avatar if not available, using initials or generic icon -->
+                   <div class="avatar-placeholder">MF</div>
+                </div>
+                <h1 class="name">Masaya Furui <span class="name-jp">(古井 雅也)</span></h1>
+                <p class="title">理学療法士 × Google 認定トレーナー</p>
+                
+                <div class="sns-links">
+                    <a href="https://note.com/lucky_pulley" target="_blank" class="sns-link note" aria-label="Note">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                        Note
+                    </a>
+                    <a href="https://www.youtube.com/@jobpulley2023" target="_blank" class="sns-link youtube" aria-label="YouTube">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                        YouTube
+                    </a>
+                    <a href="https://lit.link/jobpulley" target="_blank" class="sns-link contact" aria-label="Contact">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        Contact
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications Section -->
+        <section class="certifications">
+            <h2 class="section-title">Certifications</h2>
+            <div class="cert-grid" id="certGrid">
+                <!-- Injected via JS -->
+            </div>
+        </section>
+
+        <!-- Works Section -->
+        <section class="works">
+            <div class="works-header">
+                <h2 class="section-title">Works</h2>
+                <div class="filter-buttons" id="filterButtons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <!-- Injected via JS -->
+                </div>
+            </div>
+            <div class="works-grid" id="worksGrid">
+                <!-- Injected via JS -->
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <p>&copy; 2025 Masaya Furui</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+﻿クラス,ID,氏名,学生Mail,保護者Mail,専門基礎,運動学,臨床心理学,リハ概論,生理学,解剖学
+3FA,2024001,佐藤 健一,student01@example.com,parent_student01@example.com,83,86,80,73,86,66
+3FA,2024002,鈴木 花子,student02@example.com,parent_student02@example.com,85,63,84,72,81,85
+3FA,2024003,高橋 大輔,student03@example.com,parent_student03@example.com,80,94,75,96,93,93
+3FA,2024004,田中 美咲,student04@example.com,parent_student04@example.com,77,90,94,83,84,70
+3FA,2024005,伊藤 翔太,student05@example.com,parent_student05@example.com,81,77,75,83,77,68
+3FB,2024006,渡辺 明日香,student06@example.com,parent_student06@example.com,73,64,85,62,74,64
+3FB,2024007,山本 陸,student07@example.com,parent_student07@example.com,70,90,85,67,92,86
+3FB,2024008,中村 結衣,student08@example.com,parent_student08@example.com,74,72,78,72,91,88
+3FB,2024009,小林 翼,student09@example.com,parent_student09@example.com,78,70,79,91,70,91
+3FB,2024010,加藤 さくら,student10@example.com,parent_student10@example.com,85,75,83,84,79,88
