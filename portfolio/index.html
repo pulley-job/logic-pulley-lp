@@ -1,77 +1,221 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Masaya Furui - Digital Business Card</title>
-    <meta name="description" content="Portfolio of Masaya Furui - Physical Therapist & Google Certified Trainer">
+    <title>Masaya Furui | Logic Pulley - Portfolio</title>
+    <meta name="description" content="Masaya Furui Portfolio using GAS & Google Tech for Education.">
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Inter:wght@300;400;600;800&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
-    <div class="background-decorations">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-    </div>
+    <div class="noise-overlay"></div>
 
-    <main class="container">
-        <!-- Hero Section -->
-        <section class="hero glass-panel">
-            <div class="hero-content">
-                <div class="profile-avatar">
-                   <!-- Placeholder for avatar if not available, using initials or generic icon -->
-                   <div class="avatar-placeholder">MF</div>
+    <header class="glass-header simple-header">
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fa-solid fa-gear"></i>
+                <span>Logic Pulley</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#works">Works</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="mailto:pulley.job2022@gmail.com" class="btn-sm"><i
+                                class="fa-regular fa-envelope"></i></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="hero-section simple-hero">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <p class="hero-subtitle"><i class="fa-solid fa-code"></i> GAS Developer & Licensed PT</p>
+                    <h1>Design the <span class="text-highlight">Efficiency</span>.</h1>
+                    <p class="hero-description">
+                        教育現場に、本来の時間を取り戻す。<br>
+                        理学療法士の視点とGoogleの技術で、業務を「作品」へと昇華させます。
+                    </p>
+                    <div class="simple-social-links">
+                        <a href="https://note.com/lucky_pulley" target="_blank"><i
+                                class="fa-regular fa-note-sticky"></i></a>
+                        <a href="https://www.youtube.com/@jobpulley2023" target="_blank"><i
+                                class="fa-brands fa-youtube"></i></a>
+                        <a href="https://twitter.com/JobPulley" target="_blank"><i
+                                class="fa-brands fa-x-twitter"></i></a>
+                    </div>
                 </div>
-                <h1 class="name">Masaya Furui <span class="name-jp">(古井 雅也)</span></h1>
-                <p class="title">理学療法士 × Google 認定トレーナー</p>
-                
-                <div class="sns-links">
-                    <a href="https://note.com/lucky_pulley" target="_blank" class="sns-link note" aria-label="Note">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-                        Note
-                    </a>
-                    <a href="https://www.youtube.com/@jobpulley2023" target="_blank" class="sns-link youtube" aria-label="YouTube">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                        YouTube
-                    </a>
-                    <a href="https://lit.link/jobpulley" target="_blank" class="sns-link contact" aria-label="Contact">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                        Contact
-                    </a>
+                <div class="hero-visual minimal-visual">
+                    <img src="https://assets.st-note.com/production/uploads/images/83372251/profile_4f84545236712395350c3deace4e4708.jpg?fit=bounds&format=jpeg&quality=85&width=330"
+                        alt="Masaya Furui" class="circle-profile">
                 </div>
             </div>
         </section>
 
-        <!-- Certifications Section -->
-        <section class="certifications">
-            <h2 class="section-title">Certifications</h2>
-            <div class="cert-grid" id="certGrid">
-                <!-- Injected via JS -->
+        <!-- Simplified Services / Skills Strip -->
+        <div class="skills-strip glass-card container">
+            <div class="skill-item">
+                <i class="fa-solid fa-bolt"></i>
+                <div class="skill-text">
+                    <strong>Automation</strong>
+                    <span>GAS / AppSheet</span>
+                </div>
             </div>
-        </section>
+            <div class="skill-item">
+                <i class="fa-solid fa-chalkboard-user"></i>
+                <div class="skill-text">
+                    <strong>Education</strong>
+                    <span>Certified Trainer</span>
+                </div>
+            </div>
+            <div class="skill-item">
+                <i class="fa-solid fa-magnifying-glass-chart"></i>
+                <div class="skill-text">
+                    <strong>Consulting</strong>
+                    <span>DX Support</span>
+                </div>
+            </div>
+        </div>
 
-        <!-- Works Section -->
-        <section class="works">
-            <div class="works-header">
-                <h2 class="section-title">Works</h2>
-                <div class="filter-buttons" id="filterButtons">
+        <section id="works" class="works-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title"><span class="pixel-font">01.</span> Selected Works</h2>
+                    <p class="section-desc">教育現場の課題解決に向けた、ツール開発と発信活動の記録。</p>
+                </div>
+
+                <div class="filter-buttons">
                     <button class="filter-btn active" data-filter="all">All</button>
-                    <!-- Injected via JS -->
+                    <button class="filter-btn" data-filter="note">Note</button>
+                    <button class="filter-btn" data-filter="youtube">YouTube</button>
+                </div>
+
+                <div class="works-grid">
+                    <!-- Note Articles -->
+                    <article class="work-card glass-card" data-category="note">
+                        <div class="card-image note-bg">
+                            <i class="fa-solid fa-note-sticky"></i>
+                        </div>
+                        <div class="card-content">
+                            <span class="tag">Note</span>
+                            <h3>自己紹介｜教育DX×理学療法士教員としての歩み</h3>
+                            <a href="https://note.com/lucky_pulley/n/nd35ad47f056e" target="_blank"
+                                class="read-more">Read <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="work-card glass-card" data-category="note">
+                        <div class="card-image note-bg">
+                            <i class="fa-solid fa-file-csv"></i>
+                        </div>
+                        <div class="card-content">
+                            <span class="tag">System</span>
+                            <h3>求人票入力フォーム最終版</h3>
+                            <a href="https://note.com/lucky_pulley/n/n876fff387956" target="_blank"
+                                class="read-more">Read <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- YouTube Videos -->
+                    <article class="work-card glass-card" data-category="youtube">
+                        <div class="card-image youtube-bg">
+                            <img src="https://img.youtube.com/vi/SZmu7Iw9diI/hqdefault.jpg"
+                                alt="YouTube Video Thumbnail">
+                            <div class="play-overlay"><i class="fa-solid fa-play"></i></div>
+                        </div>
+                        <div class="card-content">
+                            <span class="tag">YouTube</span>
+                            <h3>求人票入力フォーム解説</h3>
+                            <a href="https://www.youtube.com/watch?v=SZmu7Iw9diI" target="_blank"
+                                class="read-more">Watch <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="work-card glass-card" data-category="youtube">
+                        <div class="card-image youtube-bg">
+                            <img src="https://img.youtube.com/vi/BdJLV0RYfVQ/hqdefault.jpg"
+                                alt="YouTube Video Thumbnail">
+                            <div class="play-overlay"><i class="fa-solid fa-play"></i></div>
+                        </div>
+                        <div class="card-content">
+                            <span class="tag">YouTube</span>
+                            <h3>マスタ連動＆自動入力Ver2</h3>
+                            <a href="https://www.youtube.com/watch?v=BdJLV0RYfVQ" target="_blank"
+                                class="read-more">Watch <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="work-card glass-card" data-category="note">
+                        <div class="card-image note-bg">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div class="card-content">
+                            <span class="tag">Column</span>
+                            <h3>Geminiと歩んだ学びの話</h3>
+                            <a href="https://note.com/lucky_pulley/n/n7bb3e2f5a46e" target="_blank"
+                                class="read-more">Read <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="work-card glass-card" data-category="youtube">
+                        <div class="card-image youtube-bg">
+                            <img src="https://img.youtube.com/vi/JcbZ5qvjn3A/hqdefault.jpg"
+                                alt="YouTube Video Thumbnail">
+                            <div class="play-overlay"><i class="fa-solid fa-play"></i></div>
+                        </div>
+                        <div class="card-content">
+                            <span class="tag">Gamification</span>
+                            <h3>RPG風フォーム学習システム</h3>
+                            <a href="https://www.youtube.com/watch?v=JcbZ5qvjn3A" target="_blank"
+                                class="read-more">Watch <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </article>
                 </div>
             </div>
-            <div class="works-grid" id="worksGrid">
-                <!-- Injected via JS -->
+        </section>
+
+        <!-- Profile / About (Simplified) -->
+        <section id="about" class="about-section simple-about">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-text">
+                        <h2 class="section-title"><span class="pixel-font">02.</span> About Me</h2>
+                        <p class="about-bio">
+                            <strong>古井 雅也 (Masaya Furui)</strong><br>
+                            理学療法士養成校 教員 / Google Certified Trainer<br><br>
+                            「教育」と「テクノロジー」の架け橋として活動。
+                            現場で感じる「不便」を、GASを中心とした技術で解決し、
+                            教員と学生が本質的な学びに集中できる環境を作っています。
+                        </p>
+                        <a href="mailto:pulley.job2022@gmail.com" class="btn-primary simple-contact-btn">
+                            <i class="fa-regular fa-paper-plane"></i> Contact Me
+                        </a>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
-    
-    <footer class="footer">
-        <p>&copy; 2025 Masaya Furui</p>
+
+    <footer class="glass-footer">
+        <div class="container">
+            <p>&copy; 2026 Logic Pulley.</p>
+        </div>
     </footer>
 
     <script src="script.js"></script>
 </body>
+
 </html>
