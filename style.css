@@ -221,6 +221,27 @@ body {
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
+.profile-layout {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.profile-text-col h3 {
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
+.profile-text-col p {
+    color: #555;
+    line-height: 1.8;
+}
+
+.profile-note-col .media-card {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
 .grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -751,7 +772,8 @@ body {
     }
 
     /* Achievements Mobile */
-    .achievements-list {
+    .achievements-list,
+    .profile-layout {
         grid-template-columns: 1fr;
     }
 
