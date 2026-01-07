@@ -587,6 +587,81 @@ body {
     line-height: 1.7;
 }
 
+/* History Grid Layout */
+.history-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.history-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.history-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, rgba(66, 133, 244, 0.1), rgba(52, 168, 83, 0.1));
+    color: var(--primary-color);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+}
+
+.history-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 1rem;
+    letter-spacing: -0.5px;
+}
+
+.history-item {
+    margin-bottom: 1.5rem;
+    padding-left: 1.25rem;
+    border-left: 3px solid #eee;
+    transition: border-color 0.3s;
+}
+
+.history-card:hover .history-item {
+    border-left-color: var(--secondary-color);
+}
+
+.history-item:last-child {
+    margin-bottom: 0;
+}
+
+.history-item .year {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.history-item p {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+.history-item strong {
+    color: #333;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
 /* Footer */
 .footer {
     background: #0f172a;
