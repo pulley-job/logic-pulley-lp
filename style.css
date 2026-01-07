@@ -875,9 +875,109 @@ body {
     transition-delay: 0.3s;
 }
 
+/* Hamburger Menu Toggle */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1001;
+}
+
+.hamburger {
+    display: block;
+    position: relative;
+    width: 28px;
+    height: 3px;
+    background: var(--primary-color);
+    border-radius: 3px;
+    transition: all 0.3s;
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: '';
+    position: absolute;
+    width: 28px;
+    height: 3px;
+    background: var(--primary-color);
+    border-radius: 3px;
+    transition: all 0.3s;
+}
+
+.hamburger::before {
+    top: -8px;
+}
+
+.hamburger::after {
+    top: 8px;
+}
+
+/* Hamburger active state */
+.nav-toggle.active .hamburger {
+    background: transparent;
+}
+
+.nav-toggle.active .hamburger::before {
+    top: 0;
+    transform: rotate(45deg);
+}
+
+.nav-toggle.active .hamburger::after {
+    top: 0;
+    transform: rotate(-45deg);
+}
+
+/* Grid 4 columns */
+.grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
 /* Responsive */
 /* Enhancing Responsive Mobile Experience */
+@media screen and (max-width: 992px) {
+    .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media screen and (max-width: 768px) {
+
+    /* Hamburger visible */
+    .nav-toggle {
+        display: block;
+    }
+
+    /* Nav menu hidden by default on mobile */
+    .nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        max-width: 300px;
+        height: 100vh;
+        background: white;
+        box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+        padding: 5rem 2rem 2rem;
+        transition: right 0.3s ease;
+        z-index: 1000;
+    }
+
+    .nav.active {
+        right: 0;
+    }
+
+    .nav ul {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .nav a {
+        font-size: 1.1rem;
+    }
 
     /* Header & Nav */
     .header {
@@ -886,14 +986,6 @@ body {
 
     .logo {
         font-size: 1.3rem;
-    }
-
-    .nav ul {
-        gap: 1rem;
-    }
-
-    .nav a {
-        font-size: 0.9rem;
     }
 
     /* Hero */
@@ -936,6 +1028,7 @@ body {
     /* Grids */
     .grid-2,
     .grid-3,
+    .grid-4,
     .services-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
