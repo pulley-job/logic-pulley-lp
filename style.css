@@ -662,6 +662,68 @@ body {
     margin-bottom: 0.25rem;
 }
 
+/* Media CTA Buttons */
+.media-cta {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 4rem;
+    flex-wrap: wrap;
+}
+
+.btn-cta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    background: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 2px solid transparent;
+}
+
+.btn-cta i:first-child {
+    font-size: 1.4rem;
+}
+
+.btn-cta .icon-arrow {
+    font-size: 0.9rem;
+    transition: transform 0.3s ease;
+}
+
+.btn-cta:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.btn-cta:hover .icon-arrow {
+    transform: translateX(5px);
+}
+
+.btn-youtube {
+    color: #FF0000;
+    border-color: #FF0000;
+}
+
+.btn-youtube:hover {
+    background: #FF0000;
+    color: white;
+}
+
+.btn-note {
+    color: #2ea697;
+    border-color: #2ea697;
+}
+
+.btn-note:hover {
+    background: #2ea697;
+    color: white;
+}
+
 /* Footer */
 .footer {
     background: #0f172a;
