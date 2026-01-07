@@ -1,46 +1,38 @@
-# Masaya Furui Portfolio (JOB PULLEY)
+# Logic Pulley Service Portfolio
 
-理学療法士 × Google 認定トレーナー、古井雅也（Masaya Furui）の公式ポートフォリオサイトです。
-「滑車（Pulley）」のように、個人やチームの重たい課題を持ち上げ、目標達成をサポートする活動を紹介しています。
+**学校・医療現場の「困った」を、テクノロジーで解決する。**
+
+理学療法士 × Google 認定トレーナー、古井雅也（Masaya Furui）が代表を務める「Logic Pulley」の公式サービスサイト兼ポートフォリオです。
+このサイトは私のポートフォリオです。**Google Antigravity** で作成しました！
 
 ## 🌐 公開URL
 **[https://pulley-job.github.io/logic-pulley-lp/](https://pulley-job.github.io/logic-pulley-lp/)**
 
 ---
 
-## 🚀 サイト概要
-このポートフォリオでは、以下の活動実績やスキルセットをまとめています。
+## 🚀 サービス概要
+現場を知る医療従事者・教育者としての視点を活かし、システム開発会社にはできない「現場に馴染むDX」を支援しています。
 
-### コンテンツ
-1.  **About Me (プロフィール)**
-    *   理学療法士としての背景と、Google認定トレーナーとしてのICTスキル。
-    *   「教育 × ICT」で現場の課題を解決するミッションについて。
+### 主な提供サービス
+*   **Google Workspace 活用支援:** GAS/AppSheetを用いた業務アプリ開発（求人票Web化、ペーパーレスなど）
+*   **ICT教育・研修:** Google認定トレーナーによる、先生のための実践的ICTセミナー
+*   **データ可視化 (Looker Studio):** 教育・医療データのダッシュボード構築と分析
 
-2.  **History (略歴)**
-    *   1988年生まれ。スポーツ（バスケットボール）での実績から、理学療法士としてのキャリア、そしてICT教育者への歩み。
-
-3.  **Professional Achievements (業務改善・実績)**
-    *   学校法人のペーパーレス化推進
-    *   求人票の完全ウェブ化システム構築
-    *   GAS × Looker Studio による成績可視化
-    *   生成AI (Gemini) を活用した業務自動化
-    *   教職員向けICT研修の継続開催
-
-4.  **Media & Activities (活動・メディア)**
-    *   **YouTube:** Google Workspace活用術の発信
-    *   **Note:** 業務効率化、RPG型学習、AI活用に関する記事執筆
-    *   **Guest Appearances:** 「Teacher’s Shift」「iTeachers TV」などのメディア出演アーカイブ
+## 📜 サイト構成
+1.  **Support Service:** 現場の課題解決に特化した、具体的な技術支援メニュー
+2.  **Can do for you:** 学校・医療現場・中小規模組織向けの業務対応範囲
+3.  **Case Studies:** 実際の導入事例と、Note/YouTubeでの発信コンテンツ
+4.  **History:** 理学療法士からICT教育者へのキャリアパスと実績
 
 ## 🛠 技術スタック
-*   **HTML5:** セマンティックなマークアップ
-*   **CSS3:** モダンなレスポンシブデザイン、カスタムアニメーション、Google Brand Colorsの活用
-*   **JavaScript:** スクロールアニメーション、インタラクティブなUI
+*   **HTML5 / CSS3:** モダンで信頼感のあるレスポンシブデザイン
+*   **JavaScript:** インタラクティブなアニメーション
+*   **Google Fonts:** Inter / Noto Sans JP
+*   **Icons:** Font Awesome & Official Brand SVGs (YouTube, Note)
 
-## 👤 Author
-**古井 雅也 (Masaya Furui)**
-*   理学療法士
-*   Google 認定トレーナー
-*   Professional ChromeOS Administrator
+## 🤖 Special Thanks
+This website was built with **Google Antigravity**.
+AIエージェントとのペアプログラミングにより、構想から実装、公開までをスピーディに実現しました。
 
 ---
-© 2024 Masaya Furui (JOB PULLEY). All Rights Reserved.
+© 2024 Logic Pulley. All Rights Reserved.
