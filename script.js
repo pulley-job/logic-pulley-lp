@@ -1,22 +1,3 @@
-// Custom Cursor
-const cursorDot = document.querySelector('.cursor-dot');
-const cursorOutline = document.querySelector('.cursor-outline');
-
-window.addEventListener('mousemove', (e) => {
-    const posX = e.clientX;
-    const posY = e.clientY;
-
-    // Dot follows immediately
-    cursorDot.style.left = `${posX}px`;
-    cursorDot.style.top = `${posY}px`;
-
-    // Outline follows with slight delay
-    cursorOutline.animate({
-        left: `${posX}px`,
-        top: `${posY}px`
-    }, { duration: 500, fill: "forwards" });
-});
-
 // Scroll Animations
 const observerOptions = {
     root: null,
@@ -58,47 +39,6 @@ window.addEventListener('scroll', () => {
         header.style.padding = '1.5rem 5%';
     }
 });
-
-// Add extra CSS for the cursor dynamically or ensure it is in CSS
-// Adding it here to be safe if I missed it in style.css, but I should have put it there.
-// I will check style.css content. I didn't add cursor styles in style.css.
-// I can add them via JS injection or update style.css. Updating style.css is cleaner but I can't look back easily.
-// I'll append the cursor styles to the head.
-const styleSheet = document.createElement("style");
-styleSheet.innerText = `
-    .cursor-dot {
-        width: 5px;
-        height: 5px;
-        background-color: var(--primary-color);
-        position: fixed;
-        top: 0;
-        left: 0;
-        transform: translate(-50%, -50%);
-        border-radius: 50%;
-        z-index: 9999;
-        pointer-events: none;
-    }
-    .cursor-outline {
-        width: 30px;
-        height: 30px;
-        border: 2px solid var(--primary-color);
-        position: fixed;
-        top: 0;
-        left: 0;
-        transform: translate(-50%, -50%);
-        border-radius: 50%;
-        z-index: 9998;
-        pointer-events: none;
-        transition: width 0.2s, height 0.2s, background-color 0.2s;
-    }
-    /* Hover effects for cursor */
-    a:hover ~ .cursor-outline, button:hover ~ .cursor-outline {
-        transform: translate(-50%, -50%) scale(1.5);
-        background-color: rgba(66, 133, 244, 0.1);
-        border-color: transparent;
-    }
-`;
-document.head.appendChild(styleSheet);
 
 // Hamburger Menu Toggle
 const navToggle = document.getElementById('navToggle');
