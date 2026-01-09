@@ -30,11 +30,46 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollAnimations();
     initHeaderScrollEffect();
     initMobileNavigation();
+    initTestimonialSlider();
 });
 
 /**
- * Initialize Intersection Observer for scroll-based animations
+ * Initialize testimonial slider controls
  */
+function initTestimonialSlider() {
+    const track = document.getElementById('testimonialTrack');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    if (!track || !prevBtn || !nextBtn) return;
+
+    // Scroll amount = container width (visible area)
+    const scrollAmount = () => {
+        const cardWidth = track.querySelector('.testimonial-card').offsetWidth;
+        const gap = parseInt(getComputedStyle(track).gap) || 0;
+        // Scroll 3 cards at a time (or less on mobile) based on visible width
+        return track.clientWidth;
+    };
+
+    nextBtn.addEventListener('click', () => {
+        track.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+    });
+
+    prevBtn.addEventListener('click', () => {
+        track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+    });
+
+    // Optional: Update button states
+    const updateButtons = () => {
+        prevBtn.disabled = track.scrollLeft <= 10; // Tolerance
+        nextBtn.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 10;
+    };
+
+    track.addEventListener('scroll', updateButtons, { passive: true });
+    // Initial check
+    setTimeout(updateButtons, 100);
+}
+
 function initScrollAnimations() {
     const observerOptions = {
         root: null,

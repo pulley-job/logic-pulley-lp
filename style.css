@@ -474,9 +474,35 @@ button {
     margin-bottom: var(--spacing-xl);
 }
 
-/* Testimonials Section */
+/* Testimonials Slider */
 .section--testimonials {
     background: #f8fafc;
+    overflow: hidden;
+}
+
+.testimonials-wrapper {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    /* Wrapper handles padding for track */
+}
+
+.testimonial-track {
+    display: flex;
+    gap: var(--spacing-lg);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: var(--spacing-sm) 4px var(--spacing-lg);
+    /* Add padding for shadow visibility */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.testimonial-track::-webkit-scrollbar {
+    display: none;
+    /* Chrome/Safari */
 }
 
 .testimonial-card {
@@ -488,6 +514,15 @@ button {
     flex-direction: column;
     gap: 1.5rem;
     height: 100%;
+    /* 3 cards view calculation: (100% - (gap * 2)) / 3 */
+    flex: 0 0 calc((100% - (var(--spacing-lg) * 2)) / 3);
+    scroll-snap-align: start;
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgb(0 0 0 / 10%);
 }
 
 .testimonial-group {
@@ -520,6 +555,58 @@ button {
 .testimonial-author {
     font-weight: 600;
     color: #1e293b;
+}
+
+/* Slider Controls */
+.slider-controls {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+.slider-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--radius-circle);
+    background: var(--color-bg-white);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    font-size: 1.2rem;
+    transition: all var(--transition-base);
+    border: 1px solid rgb(0 0 0 / 5%);
+}
+
+.slider-btn:hover {
+    background: var(--color-primary);
+    color: var(--color-bg-white);
+    transform: scale(1.1);
+}
+
+.slider-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #e2e8f0;
+    color: #94a3b8;
+}
+
+/* Responsive Slider */
+@media screen and (max-width: 992px) {
+    .testimonial-card {
+        /* 2 cards view */
+        flex: 0 0 calc((100% - var(--spacing-lg)) / 2);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .testimonial-card {
+        /* 1 card view */
+        flex: 0 0 100%;
+        padding: 1.5rem;
+    }
 }
 
 /* ==========================================================================
