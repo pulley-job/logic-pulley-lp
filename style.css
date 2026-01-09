@@ -475,6 +475,7 @@ button {
 }
 
 /* Testimonials Slider */
+/* Testimonials Slider 3D Effect */
 .section--testimonials {
     background: #f8fafc;
     overflow: hidden;
@@ -484,7 +485,6 @@ button {
     position: relative;
     max-width: 1200px;
     margin: 0 auto;
-    /* Wrapper handles padding for track */
 }
 
 .testimonial-track {
@@ -493,39 +493,60 @@ button {
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    padding: var(--spacing-sm) 4px var(--spacing-lg);
-    /* Add padding for shadow visibility */
+    /* 左右に見切れを作るためのパディング調整 */
+    padding: var(--spacing-lg) 2rem;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    /* Firefox */
     align-items: stretch;
     /* Cards will stretch to match the tallest one */
 }
 
 .testimonial-track::-webkit-scrollbar {
     display: none;
-    /* Chrome/Safari */
 }
 
 .testimonial-card {
     background: var(--color-bg-white);
     padding: 2rem;
     border-radius: var(--radius-lg);
-    box-shadow: 0 5px 20px rgb(0 0 0 / 5%);
+
+    /* 3D Base Styles: Slightly smaller and faded */
+    box-shadow: 0 5px 15px rgb(0 0 0 / 5%);
+    opacity: 0.6;
+    transform: scale(0.92);
+
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
     height: auto;
-    /* Let flex/stretch handle height */
-    /* 3 cards view calculation: (100% - (gap * 2)) / 3 */
+
+    /* 3 cards view calculation */
     flex: 0 0 calc((100% - (var(--spacing-lg) * 2)) / 3);
-    scroll-snap-align: start;
-    transition: transform var(--transition-base), box-shadow var(--transition-base);
+
+    /* Snap to center for better focus */
+    scroll-snap-align: center;
+
+    /* Smooth Transition */
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+/* Active State (Center cards) */
+.testimonial-card.active {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 20px 50px -10px rgb(0 0 0 / 15%);
+    z-index: 2;
+}
+
+/* Hover Effect */
 .testimonial-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgb(0 0 0 / 10%);
+    transform: scale(0.95);
+    opacity: 0.9;
+}
+
+.testimonial-card.active:hover {
+    transform: scale(1.02);
+    box-shadow: 0 25px 60px -15px rgb(0 0 0 / 20%);
 }
 
 .testimonial-group {

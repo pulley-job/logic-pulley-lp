@@ -68,6 +68,25 @@ function initTestimonialSlider() {
     track.addEventListener('scroll', updateButtons, { passive: true });
     // Initial check
     setTimeout(updateButtons, 100);
+
+    // 3D Effect: Add 'active' class to visible cards
+    const observerOptions = {
+        root: track,
+        threshold: 0.6 // Card is considered active when 60% visible
+    };
+
+    const cardObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            } else {
+                entry.target.classList.remove('active');
+            }
+        });
+    }, observerOptions);
+
+    const cards = track.querySelectorAll('.testimonial-card');
+    cards.forEach(card => cardObserver.observe(card));
 }
 
 function initScrollAnimations() {
