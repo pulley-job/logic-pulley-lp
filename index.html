@@ -4,35 +4,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
     <title>古井 雅也 | 理学療法士 × Google認定トレーナー | LOGIC PULLEY</title>
     <meta name="description" content="古井雅也のポートフォリオ。理学療法士×Google認定トレーナーとして、教育・医療現場のDX支援、Google Workspace活用、ICT研修を提供します。">
-    <!-- OGP -->
-    <meta property="og:title" content="古井 雅也 | 理学療法士 × Google認定トレーナー">
-    <meta property="og:description" content="教育・医療現場のDX支援、Google Workspace活用、ICT研修を提供。現場の負担をテクノロジーで軽くします。">
+
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pulley-job.github.io/logic-pulley-lp/">
+    <meta property="og:title" content="古井 雅也 | 理学療法士 × Google認定トレーナー">
+    <meta property="og:description" content="教育・医療現場のDX支援、Google Workspace活用、ICT研修を提供。現場の負担をテクノロジーで軽くします。">
     <meta property="og:image" content="https://pulley-job.github.io/logic-pulley-lp/ogp.png">
     <meta property="og:site_name" content="LOGIC PULLEY">
+
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="古井 雅也 | 理学療法士 × Google認定トレーナー">
     <meta name="twitter:description" content="教育・医療現場のDX支援、Google Workspace活用、ICT研修を提供。">
+    <meta name="twitter:image" content="https://pulley-job.github.io/logic-pulley-lp/ogp.png">
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Outfit:wght@400;700&display=swap"
         rel="stylesheet">
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 
 <body>
-    <header class="header">
+    <!-- Header -->
+    <header class="header" role="banner">
         <div class="logo">LOGIC PULLEY</div>
-        <button class="nav-toggle" aria-label="Toggle navigation" id="navToggle">
-            <span class="hamburger"></span>
+        <button class="nav-toggle" aria-label="メニューを開く" aria-expanded="false" id="navToggle">
+            <span class="hamburger" aria-hidden="true"></span>
         </button>
-        <nav class="nav" id="navMenu">
+        <nav class="nav" id="navMenu" aria-label="メインナビゲーション">
             <ul>
                 <li><a href="#history">About</a></li>
                 <li><a href="#services">Services</a></li>
@@ -45,17 +57,15 @@
 
     <main>
         <!-- Hero Section -->
-        <section class="hero">
+        <section class="hero" aria-labelledby="hero-title">
             <div class="hero-content">
-                <h1 class="hero-title fade-in-up">古井 雅也</h1>
+                <h1 id="hero-title" class="hero-title fade-in-up">古井 雅也</h1>
                 <p class="hero-subtitle fade-in-up delay-1">理学療法士 × Google認定トレーナー</p>
-                <p class="hero-brand fade-in-up delay-1"
-                    style="font-size: 1.2rem; color: var(--primary-color); margin-top: 1rem; font-weight: 700; letter-spacing: 2px;">
-                    LOGIC PULLEY</p>
-                <p class="hero-note fade-in-up delay-2" style="font-size: 0.85rem; color: #94a3b8; margin-top: 0.5rem;">
+                <p class="hero-brand fade-in-up delay-1">LOGIC PULLEY</p>
+                <p class="hero-note fade-in-up delay-2">
                     ※Google認定トレーナーとは、Google for Educationを活用した授業改善・業務効率化を支援する、Googleが公式に認定したICTスペシャリストです<br>
                     <a href="https://edu.google.com/intl/ALL_jp/for-educators/certification-programs/professional-expertise/certified-trainer/"
-                        target="_blank" style="color: var(--primary-color); font-size: 0.8rem;">→ 詳細は公式サイトへ</a>
+                        target="_blank" rel="noopener noreferrer">→ 詳細は公式サイトへ</a>
                 </p>
                 <div class="hero-description fade-in-up delay-2">
                     <p>現場の負担を、テクノロジーで軽くする。<br>Google Workspaceを活用した、「明日から使える」業務改善を提案します。</p>
@@ -63,22 +73,23 @@
                 <a href="#services" class="btn-primary fade-in-up delay-3">View Services</a>
             </div>
             <div class="hero-visual fade-in-up delay-2">
-                <div
-                    style="width: 280px; height: 280px; border-radius: 50%; border: 5px solid white; box-shadow: 0 20px 50px rgba(0,0,0,0.15); background: linear-gradient(135deg, #e2e8f0 0%, #f1f5f9 100%); display: flex; align-items: center; justify-content: center; flex-direction: column;">
-                    <i class="fas fa-user" style="font-size: 4rem; color: #94a3b8; margin-bottom: 0.5rem;"></i>
-                    <span style="color: #64748b; font-size: 0.9rem;">準備中</span>
+                <div class="hero-placeholder">
+                    <i class="fas fa-user" aria-hidden="true"></i>
+                    <span>準備中</span>
                 </div>
             </div>
         </section>
 
         <!-- History Section -->
-        <section id="history" class="section">
+        <section id="history" class="section" aria-labelledby="history-title">
             <div class="container">
-                <h2 class="section-title">History</h2>
+                <h2 id="history-title" class="section-title">History</h2>
                 <div class="grid-3 history-grid">
                     <!-- Column 1: Origins & Sports -->
-                    <div class="history-card fade-in-up">
-                        <div class="history-icon"><i class="fas fa-basketball-ball"></i></div>
+                    <article class="history-card fade-in-up">
+                        <div class="history-icon" aria-hidden="true">
+                            <i class="fas fa-basketball-ball"></i>
+                        </div>
                         <h3>Origins & Sports</h3>
                         <div class="history-item">
                             <span class="year">1988</span>
@@ -92,11 +103,13 @@
                             <span class="year">2006-2007</span>
                             <p><strong>中村学園三陽高校</strong><br>福岡県ベスト4</p>
                         </div>
-                    </div>
+                    </article>
 
                     <!-- Column 2: Therapist Career -->
-                    <div class="history-card fade-in-up delay-1">
-                        <div class="history-icon"><i class="fas fa-user-nurse"></i></div>
+                    <article class="history-card fade-in-up delay-1">
+                        <div class="history-icon" aria-hidden="true">
+                            <i class="fas fa-user-nurse"></i>
+                        </div>
                         <h3>Therapist Career</h3>
                         <div class="history-item">
                             <span class="year">2010</span>
@@ -110,13 +123,15 @@
                             <span class="year">Specialty</span>
                             <p>急性期、回復期、外来、訪問リハビリテーション</p>
                         </div>
-                    </div>
+                    </article>
 
                     <!-- Column 3: Educator & DX -->
-                    <div class="history-card fade-in-up delay-2">
-                        <div class="history-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <article class="history-card fade-in-up delay-2">
+                        <div class="history-icon" aria-hidden="true">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
                         <h3>Educator & DX</h3>
-                        <p style="font-size: 0.9rem; color: #666; margin-bottom: 1.5rem;">理学療法士養成校教員として10年以上従事</p>
+                        <p class="history-card-description">理学療法士養成校教員として10年以上従事</p>
                         <div class="history-item">
                             <span class="year">2015-2022</span>
                             <p><strong>福岡和白リハビリテーション学院</strong></p>
@@ -129,48 +144,54 @@
                             <span class="year">2025-Present</span>
                             <p><strong>小倉リハビリテーション学院</strong></p>
                         </div>
-                        <div class="history-item"
-                            style="margin-top: 1.5rem; border-left-color: var(--secondary-color);">
+                        <div class="history-item history-item--secondary">
                             <span class="year">担当業務（全校共通）</span>
                             <p>広報・教務・ICTトラブル対応<br>ICT教育推進・学生指導・DX推進</p>
                         </div>
-                    </div>
+                    </article>
                 </div>
 
                 <!-- Profile / Developer Info -->
-                <div class="profile-card fade-in" style="margin-top: 5rem;">
+                <div class="profile-card profile-card--margin-top fade-in">
                     <div class="profile-layout">
                         <div class="profile-text-col">
                             <div class="developer-profile">
-                                <h4><i class="fas fa-id-card"></i> 古井 雅也 (Masaya Furui)</h4>
-                                <ul class="list-check" style="margin-top: 1rem;">
+                                <h4><i class="fas fa-id-card" aria-hidden="true"></i> 古井 雅也 (Masaya Furui)</h4>
+                                <ul class="list-check mt-4">
                                     <li>理学療法士養成校教員 / 現役理学療法士</li>
                                     <li>Google認定教育者 Lv1 & Lv2 / Google認定トレーナー</li>
+                                    <li>Gemini Certified Educator</li>
                                     <li>Google Data Analytics Professional</li>
                                     <li>Professional ChromeOS Administrator</li>
                                 </ul>
-                                <div class="developer-message" style="margin-top: 2rem;">
-                                    <p><strong>【臨床知 × 教育実践 × デジタル技術】</strong><br>
+                                <div class="developer-message">
+                                    <p>
+                                        <strong>【臨床知 × 教育実践 × デジタル技術】</strong><br>
                                         私の強みは、15年以上の臨床経験に裏打ちされた「教育実践力」と、それを加速させる「ICT・データ活用能力」です。<br><br>
                                         Googleデータアナリティクスの知見を活かし、学生の成績データを分析して個別最適化された指導計画を立案。国家試験合格率の向上などに貢献してきました。<br>
-                                        教育の質の向上と業務効率化を両面から推進し、組織の発展に貢献します。</p>
+                                        教育の質の向上と業務効率化を両面から推進し、組織の発展に貢献します。
+                                    </p>
                                 </div>
                             </div>
                         </div>
                         <div class="profile-note-col">
-                            <div class="media-card note" style="height: 100%;">
+                            <article class="media-card note">
                                 <div class="media-thumb">
                                     <img src="https://assets.st-note.com/production/uploads/images/133743692/rectangle_large_type_2_1b23c9eaf41b8a16538491d166f4ba77.jpeg?fit=bounds&quality=85&width=1280"
-                                        alt="Self Introduction">
-                                    <div class="media-icon-overlay"><i class="fas fa-user-circle"></i></div>
+                                        alt="自己紹介記事のアイキャッチ画像" loading="lazy">
+                                    <div class="media-icon-overlay" aria-hidden="true">
+                                        <i class="fas fa-user-circle"></i>
+                                    </div>
                                 </div>
                                 <div class="media-content">
                                     <h3>理学療法士がGoogle認定トレーナーになれた話</h3>
                                     <p>私のこれまでの歩みと、なぜICT教育×理学療法という道を選んだのか。詳しい自己紹介はこちら。</p>
                                     <a href="https://note.com/lucky_pulley/n/nd35ad47f056e" target="_blank"
-                                        class="btn-link">自己紹介を読む <i class="fas fa-arrow-right"></i></a>
+                                        rel="noopener noreferrer" class="btn-link">
+                                        自己紹介を読む <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                                    </a>
                                 </div>
-                            </div>
+                            </article>
                         </div>
                     </div>
                 </div>
@@ -178,72 +199,80 @@
         </section>
 
         <!-- Services Section -->
-        <section id="services" class="section">
+        <section id="services" class="section" aria-labelledby="services-title">
             <div class="container">
-                <h2 class="section-title">Support Service</h2>
+                <h2 id="services-title" class="section-title">Support Service</h2>
                 <div class="grid-2">
                     <!-- Service 1: GAS/AppSheet -->
-                    <div class="card fade-in-up">
-                        <div class="achievement-icon" style="margin-bottom: 1.5rem;"><i class="fas fa-file-code"></i>
+                    <article class="card fade-in-up">
+                        <div class="card-icon achievement-icon" aria-hidden="true">
+                            <i class="fas fa-file-code"></i>
                         </div>
                         <h3>Google活用・業務効率化</h3>
-                        <p class="text-sm text-gray mb-4">Google Workspace Optimization</p>
+                        <p class="card-subtitle">Google Workspace Optimization</p>
                         <p>Google Apps Script (GAS) や AppSheet
                             を活用し、現場の「困った」を解決するツールを開発します。高額なシステムは不要。今あるツールで、日々の業務を自動化します。</p>
-                        <ul class="list-check mt-4" style="font-size: 0.9rem;">
+                        <ul class="list-check mt-4">
                             <li>フォーム自動返信・連携システムの作成</li>
                             <li>AppSheetによる受付・管理アプリ開発</li>
                             <li>ペーパーレス化の導入支援</li>
                         </ul>
-                    </div>
+                    </article>
+
                     <!-- Service 2: Data/Looker Studio -->
-                    <div class="card fade-in-up delay-1">
-                        <div class="achievement-icon" style="margin-bottom: 1.5rem;"><i class="fas fa-chart-pie"></i>
+                    <article class="card fade-in-up delay-1">
+                        <div class="card-icon achievement-icon" aria-hidden="true">
+                            <i class="fas fa-chart-pie"></i>
                         </div>
                         <h3>データの整理・「見える化」</h3>
-                        <p class="text-sm text-gray mb-4">Data Visualization</p>
+                        <p class="card-subtitle">Data Visualization</p>
                         <p>溜まったままのExcelやアンケートデータを、Looker Studioで分かりやすいグラフ（ダッシュボード）に。直感的に状況を把握できる環境を整えます。</p>
-                        <ul class="list-check mt-4" style="font-size: 0.9rem;">
+                        <ul class="list-check mt-4">
                             <li>スプレッドシートのデータベース化</li>
                             <li>成績・業務データのダッシュボード構築</li>
                             <li>アンケート集計の自動化</li>
                         </ul>
-                    </div>
+                    </article>
+
                     <!-- Service 3: Training -->
-                    <div class="card fade-in-up">
-                        <div class="achievement-icon" style="margin-bottom: 1.5rem;"><i
-                                class="fas fa-chalkboard-user"></i></div>
+                    <article class="card fade-in-up">
+                        <div class="card-icon achievement-icon" aria-hidden="true">
+                            <i class="fas fa-chalkboard-user"></i>
+                        </div>
                         <h3>ICT研修・セミナー講師</h3>
-                        <p class="text-sm text-gray mb-4">ICT Training for Teachers</p>
+                        <p class="card-subtitle">ICT Training for Teachers</p>
                         <p>Google認定トレーナーとして、教職員・医療従事者向けの研修を行います。操作説明だけでなく、「現場でどう使うか」に特化した実践的な内容です。</p>
-                        <ul class="list-check mt-4" style="font-size: 0.9rem;">
+                        <ul class="list-check mt-4">
                             <li>Google Workspace 活用研修</li>
                             <li>「明日から使える」授業・業務活用術</li>
                             <li>管理者向けコンソール設定サポート</li>
                         </ul>
-                    </div>
+                    </article>
+
                     <!-- Service 4: Gemini AI -->
-                    <div class="card fade-in-up delay-1">
-                        <div class="achievement-icon" style="margin-bottom: 1.5rem;"><i class="fas fa-robot"></i></div>
+                    <article class="card fade-in-up delay-1">
+                        <div class="card-icon achievement-icon" aria-hidden="true">
+                            <i class="fas fa-robot"></i>
+                        </div>
                         <h3>生成AI (Gemini) 活用</h3>
-                        <p class="text-sm text-gray mb-4">Generative AI Support</p>
+                        <p class="card-subtitle">Generative AI Support</p>
                         <p>Geminiをはじめとした生成AIを、業務や授業の「相棒」にする方法をお伝えします。事務作業の時短から、アイデア出し、教材作成まで幅広くサポート。</p>
-                        <ul class="list-check mt-4" style="font-size: 0.9rem;">
+                        <ul class="list-check mt-4">
                             <li>AIによる校務・事務作業の時短術</li>
                             <li>教育現場でのAIガイドライン作成支援</li>
                             <li>授業でのAI活用アイデア提案</li>
                         </ul>
-                    </div>
+                    </article>
                 </div>
             </div>
         </section>
 
         <!-- Business Scope Section -->
-        <section id="scope" class="section bg-light">
+        <section id="scope" class="section bg-light" aria-labelledby="scope-title">
             <div class="container">
-                <h2 class="section-title">Can do for you.</h2>
+                <h2 id="scope-title" class="section-title">Can do for you.</h2>
                 <div class="profile-card fade-in-up">
-                    <p style="text-align: center; margin-bottom: 2rem;">学校・中小規模の組織において、以下のサポートが可能です。</p>
+                    <p class="scope-intro">学校・中小規模の組織において、以下のサポートが可能です。</p>
                     <div class="grid-2">
                         <ul class="list-check">
                             <li><strong>学校・チーム内の業務フロー見直し・ICT導入</strong></li>
@@ -264,262 +293,331 @@
         </section>
 
         <!-- Case Studies Section -->
-        <section id="achievements" class="section">
+        <section id="achievements" class="section" aria-labelledby="achievements-title">
             <div class="container">
-                <h2 class="section-title">Case Studies</h2>
+                <h2 id="achievements-title" class="section-title">Case Studies</h2>
                 <div class="achievements-list">
                     <!-- Achievement 1: Paperless -->
-                    <div class="achievement-item fade-in-up">
-                        <div class="achievement-icon"><i class="fas fa-paper-plane"></i></div>
+                    <article class="achievement-item fade-in-up">
+                        <div class="achievement-icon" aria-hidden="true">
+                            <i class="fas fa-paper-plane"></i>
+                        </div>
                         <div class="achievement-content">
                             <h3>学校法人のペーパーレス化・業務効率化</h3>
                             <p>学内のペーパーレス化を推進し、iPadとノートPCを活用したワークスタイルを確立。作業効率を劇的に改善しました。</p>
                         </div>
-                    </div>
+                    </article>
+
                     <!-- Achievement 2: Visualization -->
-                    <div class="achievement-item fade-in-up delay-1">
-                        <div class="achievement-icon"><i class="fas fa-chart-bar"></i></div>
+                    <article class="achievement-item fade-in-up delay-1">
+                        <div class="achievement-icon" aria-hidden="true">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
                         <div class="achievement-content">
                             <h3>成績・学習状況の可視化システム</h3>
                             <p>Googleスプレッドシート、Looker Studio、GASを連携。個別の成績カルテや模擬試験の推移を即座に可視化し、指導に活かせる仕組みを開発。</p>
                         </div>
-                    </div>
+                    </article>
+
                     <!-- Achievement 3: Job Posting -->
-                    <div class="achievement-item fade-in-up delay-2">
-                        <div class="achievement-icon"><i class="fas fa-globe"></i></div>
+                    <article class="achievement-item fade-in-up delay-2">
+                        <div class="achievement-icon" aria-hidden="true">
+                            <i class="fas fa-globe"></i>
+                        </div>
                         <div class="achievement-content">
                             <h3>求人票の完全ウェブ化</h3>
                             <p>従来のアナログな求人票をウェブ化。学生が「いつでも・どこでも」スマホやPCから情報を閲覧できる環境を構築しました。</p>
                         </div>
-                    </div>
+                    </article>
+
                     <!-- Achievement 4: Job Fair -->
-                    <div class="achievement-item fade-in-up delay-2">
-                        <div class="achievement-icon"><i class="fas fa-qrcode"></i></div>
+                    <article class="achievement-item fade-in-up delay-2">
+                        <div class="achievement-icon" aria-hidden="true">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
                         <div class="achievement-content">
                             <h3>就職説明会の受付業務効率化</h3>
                             <p>QRコードとノーコードアプリ(AppSheet)を活用。長蛇の列ができていた受付時間を大幅に短縮し、スムーズな運営を実現。</p>
                         </div>
-                    </div>
+                    </article>
+
                     <!-- Achievement 5: Training -->
-                    <div class="achievement-item fade-in-up delay-1">
-                        <div class="achievement-icon"><i class="fas fa-chalkboard-user"></i></div>
+                    <article class="achievement-item fade-in-up delay-1">
+                        <div class="achievement-icon" aria-hidden="true">
+                            <i class="fas fa-chalkboard-user"></i>
+                        </div>
                         <div class="achievement-content">
                             <h3>教職員向けICT研修・継続サポート</h3>
                             <p>教員や事務職員向けにGoogle Workspace活用講座を年10回以上開催。導入のみならず、継続的な伴走サポートで定着を支援しています。</p>
                         </div>
-                    </div>
+                    </article>
+
                     <!-- Achievement 6: AI -->
-                    <div class="achievement-item fade-in-up delay-2">
-                        <div class="achievement-icon"><i class="fas fa-robot"></i></div>
+                    <article class="achievement-item fade-in-up delay-2">
+                        <div class="achievement-icon" aria-hidden="true">
+                            <i class="fas fa-robot"></i>
+                        </div>
                         <div class="achievement-content">
                             <h3>生成AI (Gemini) による業務自動化</h3>
                             <p>GeminiやGoogle関連のAIツールを活用し、日々のルーチン業務を自動化。先端技術を実務に取り入れ、生産性を向上させています。</p>
                         </div>
-                    </div>
+                    </article>
+
                     <!-- Achievement 7: Medical Organization Support -->
-                    <div class="achievement-item fade-in-up delay-1">
-                        <div class="achievement-icon"><i class="fas fa-hospital-user"></i></div>
+                    <article class="achievement-item fade-in-up delay-1">
+                        <div class="achievement-icon" aria-hidden="true">
+                            <i class="fas fa-hospital-user"></i>
+                        </div>
                         <div class="achievement-content">
                             <h3>医療現場の組織・スタッフ管理支援</h3>
                             <p>医療機関からの依頼で、組織図やスタッフのシフト・状態管理をサポート。現場のニーズに合わせた実用的なシートやツールを提供しました。</p>
                         </div>
-                    </div>
+                    </article>
+
                     <!-- Achievement 8: Review Reply AI -->
-                    <div class="achievement-item fade-in-up delay-2">
-                        <div class="achievement-icon"><i class="fas fa-comments"></i></div>
+                    <article class="achievement-item fade-in-up delay-2">
+                        <div class="achievement-icon" aria-hidden="true">
+                            <i class="fas fa-comments"></i>
+                        </div>
                         <div class="achievement-content">
                             <h3>口コミ返信AI自動化（中小企業向け）</h3>
                             <p>Gemini API × Googleスプレッドシートで、口コミへの返信文を自動生成するシステムを構築。集計シートの編集・最適化アドバイスも実施しました。</p>
                         </div>
-                    </div>
+                    </article>
                 </div>
             </div>
         </section>
 
         <!-- Media Section -->
-        <section id="media" class="section bg-light">
+        <section id="media" class="section bg-light" aria-labelledby="media-title">
             <div class="container">
-                <h2 class="section-title">Media & Activities</h2>
+                <h2 id="media-title" class="section-title">Media & Activities</h2>
 
                 <div class="grid-3">
                     <!-- Article 1: GAS -->
-                    <div class="media-card note fade-in-up">
+                    <article class="media-card note fade-in-up">
                         <div class="media-thumb">
                             <img src="https://assets.st-note.com/production/uploads/images/237854472/rectangle_large_type_2_db7c3aeba6e84ab0b323f2e02f5fd1c8.jpeg?fit=bounds&quality=85&width=1280"
-                                alt="GAS Automation">
-                            <div class="media-icon-overlay"><i class="fas fa-file-code"></i></div>
+                                alt="GAS自動化に関する記事のアイキャッチ" loading="lazy">
+                            <div class="media-icon-overlay" aria-hidden="true">
+                                <i class="fas fa-file-code"></i>
+                            </div>
                         </div>
                         <div class="media-content">
                             <h3>求人票入力フォーム最終版？？</h3>
                             <p>スプレッドシートの「横スクロール」はもう禁止。マスタ連動＆自動入力フォームで業務を最大化。</p>
                             <a href="https://note.com/lucky_pulley/n/n876fff387956" target="_blank"
-                                class="btn-link">詳細を見る <i class="fas fa-arrow-right"></i></a>
+                                rel="noopener noreferrer" class="btn-link">
+                                詳細を見る <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                            </a>
                         </div>
-                    </div>
+                    </article>
 
                     <!-- Article 2: Gamification -->
-                    <div class="media-card note fade-in-up delay-1">
+                    <article class="media-card note fade-in-up delay-1">
                         <div class="media-thumb">
                             <img src="https://assets.st-note.com/production/uploads/images/230267673/rectangle_large_type_2_86cff5212b741ce1d98bf1c775af95e3.jpeg?fit=bounds&quality=85&width=1280"
-                                alt="RPG Learning">
-                            <div class="media-icon-overlay"><i class="fas fa-gamepad"></i></div>
+                                alt="RPG風学習に関する記事のアイキャッチ" loading="lazy">
+                            <div class="media-icon-overlay" aria-hidden="true">
+                                <i class="fas fa-gamepad"></i>
+                            </div>
                         </div>
                         <div class="media-content">
                             <h3>やらされ感満載の課題が「RPG」に！</h3>
                             <p>【Google認定教育者 × 理学療法教員】Googleフォームで学生の学習意欲に火をつけた方法</p>
                             <a href="https://note.com/lucky_pulley/n/n09b503a29415" target="_blank"
-                                class="btn-link">詳細を見る <i class="fas fa-arrow-right"></i></a>
+                                rel="noopener noreferrer" class="btn-link">
+                                詳細を見る <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                            </a>
                         </div>
-                    </div>
+                    </article>
 
                     <!-- Article 3: Gemini -->
-                    <div class="media-card note fade-in-up delay-2">
+                    <article class="media-card note fade-in-up delay-2">
                         <div class="media-thumb">
                             <img src="https://assets.st-note.com/production/uploads/images/227691888/rectangle_large_type_2_e321538f7f6c39bbaf9745730f5c93b4.png?fit=bounds&quality=85&width=1280"
-                                alt="Gemini Education">
-                            <div class="media-icon-overlay"><i class="fas fa-brain"></i></div>
+                                alt="Geminiに関する記事のアイキャッチ" loading="lazy">
+                            <div class="media-icon-overlay" aria-hidden="true">
+                                <i class="fas fa-brain"></i>
+                            </div>
                         </div>
                         <div class="media-content">
                             <h3>「答え」ではなく「問い」をくれた相棒</h3>
                             <p>理学療法士教員がGeminiと歩んだ「学び」の話</p>
                             <a href="https://note.com/lucky_pulley/n/n7bb3e2f5a46e" target="_blank"
-                                class="btn-link">詳細を見る <i class="fas fa-arrow-right"></i></a>
+                                rel="noopener noreferrer" class="btn-link">
+                                詳細を見る <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                            </a>
                         </div>
-                    </div>
+                    </article>
                 </div>
 
                 <!-- Guest Appearances -->
                 <h3 class="subsection-title text-center fade-in-up" style="margin-top: 5rem; margin-bottom: 3rem;">
-                    Guest Media Appearances</h3>
+                    Guest Media Appearances
+                </h3>
                 <div class="grid-4">
-                    <div class="media-card youtube fade-in-up">
+                    <article class="media-card youtube fade-in-up">
                         <div class="media-thumb">
-                            <img src="https://img.youtube.com/vi/3S_dJN-0exI/maxresdefault.jpg" alt="Teacher's Shift">
-                            <div class="media-icon-overlay"><i class="fab fa-youtube"></i></div>
+                            <img src="https://img.youtube.com/vi/3S_dJN-0exI/maxresdefault.jpg"
+                                alt="Teacher's Shift前編のサムネイル" loading="lazy">
+                            <div class="media-icon-overlay" aria-hidden="true">
+                                <i class="fab fa-youtube"></i>
+                            </div>
                         </div>
                         <div class="media-content">
                             <h3>生成AIで添削時間を大幅削減!?</h3>
                             <p>【Teacher's Shift】専門学校でのICT活用と働き方改革。（前編）</p>
-                            <a href="https://www.youtube.com/watch?v=3S_dJN-0exI" target="_blank" class="btn-link">動画を見る
-                                <i class="fas fa-arrow-right"></i></a>
+                            <a href="https://www.youtube.com/watch?v=3S_dJN-0exI" target="_blank"
+                                rel="noopener noreferrer" class="btn-link">
+                                動画を見る <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                            </a>
                         </div>
-                    </div>
-                    <div class="media-card youtube fade-in-up delay-1">
+                    </article>
+
+                    <article class="media-card youtube fade-in-up delay-1">
                         <div class="media-thumb">
-                            <img src="https://img.youtube.com/vi/KP4B81eO4IU/maxresdefault.jpg" alt="Teacher's Shift">
-                            <div class="media-icon-overlay"><i class="fab fa-youtube"></i></div>
+                            <img src="https://img.youtube.com/vi/KP4B81eO4IU/maxresdefault.jpg"
+                                alt="Teacher's Shift後編のサムネイル" loading="lazy">
+                            <div class="media-icon-overlay" aria-hidden="true">
+                                <i class="fab fa-youtube"></i>
+                            </div>
                         </div>
                         <div class="media-content">
                             <h3>学生のために働く教員の多忙な1日</h3>
                             <p>【Teacher's Shift】仕事と家庭の両立、未来への展望。（後編）</p>
-                            <a href="https://www.youtube.com/watch?v=KP4B81eO4IU" target="_blank" class="btn-link">動画を見る
-                                <i class="fas fa-arrow-right"></i></a>
+                            <a href="https://www.youtube.com/watch?v=KP4B81eO4IU" target="_blank"
+                                rel="noopener noreferrer" class="btn-link">
+                                動画を見る <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                            </a>
                         </div>
-                    </div>
-                    <div class="media-card youtube fade-in-up delay-2">
+                    </article>
+
+                    <article class="media-card youtube fade-in-up delay-2">
                         <div class="media-thumb">
-                            <img src="https://img.youtube.com/vi/IsWzP2h1_Fw/maxresdefault.jpg" alt="iTeachers TV">
-                            <div class="media-icon-overlay"><i class="fab fa-youtube"></i></div>
+                            <img src="https://img.youtube.com/vi/IsWzP2h1_Fw/maxresdefault.jpg"
+                                alt="iTeachers TV前編のサムネイル" loading="lazy">
+                            <div class="media-icon-overlay" aria-hidden="true">
+                                <i class="fab fa-youtube"></i>
+                            </div>
                         </div>
                         <div class="media-content">
                             <h3>教育と業務効率化の両立（前編）</h3>
                             <p>【iTeachers TV】ICTで実現する学びと業務の進化。</p>
-                            <a href="https://www.youtube.com/watch?v=IsWzP2h1_Fw" target="_blank" class="btn-link">動画を見る
-                                <i class="fas fa-arrow-right"></i></a>
+                            <a href="https://www.youtube.com/watch?v=IsWzP2h1_Fw" target="_blank"
+                                rel="noopener noreferrer" class="btn-link">
+                                動画を見る <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                            </a>
                         </div>
-                    </div>
-                    <div class="media-card youtube fade-in-up delay-3">
+                    </article>
+
+                    <article class="media-card youtube fade-in-up delay-3">
                         <div class="media-thumb">
-                            <img src="https://img.youtube.com/vi/0YUQvI9KE3g/maxresdefault.jpg" alt="iTeachers TV">
-                            <div class="media-icon-overlay"><i class="fab fa-youtube"></i></div>
+                            <img src="https://img.youtube.com/vi/0YUQvI9KE3g/maxresdefault.jpg"
+                                alt="iTeachers TV後編のサムネイル" loading="lazy">
+                            <div class="media-icon-overlay" aria-hidden="true">
+                                <i class="fab fa-youtube"></i>
+                            </div>
                         </div>
                         <div class="media-content">
                             <h3>教育と業務効率化の両立（後編）</h3>
                             <p>【iTeachers TV】ICT導入の具体的効果について。</p>
-                            <a href="https://www.youtube.com/watch?v=0YUQvI9KE3g" target="_blank" class="btn-link">動画を見る
-                                <i class="fas fa-arrow-right"></i></a>
+                            <a href="https://www.youtube.com/watch?v=0YUQvI9KE3g" target="_blank"
+                                rel="noopener noreferrer" class="btn-link">
+                                動画を見る <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                            </a>
                         </div>
-                    </div>
+                    </article>
                 </div>
 
                 <div class="media-cta fade-in-up delay-2">
                     <a href="https://www.youtube.com/channel/UCaCcMmGgIx35Tcfw3DHZLmQ" target="_blank"
-                        class="btn-cta btn-youtube">
-                        <i class="fab fa-youtube"></i>
+                        rel="noopener noreferrer" class="btn-cta btn-youtube">
+                        <i class="fab fa-youtube" aria-hidden="true"></i>
                         <span>YouTubeチャンネル</span>
-                        <i class="fas fa-arrow-right icon-arrow"></i>
+                        <i class="fas fa-arrow-right icon-arrow" aria-hidden="true"></i>
                     </a>
-                    <a href="https://note.com/lucky_pulley" target="_blank" class="btn-cta btn-note">
+                    <a href="https://note.com/lucky_pulley" target="_blank" rel="noopener noreferrer"
+                        class="btn-cta btn-note">
                         <svg class="icon-brand-note" viewBox="0 0 40 40" width="24" height="24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg" style="width: 1.4rem; height: 1.4rem;">
+                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <rect width="40" height="40" rx="8" fill="currentColor" />
                             <path
                                 d="M14.85 11.9C17.55 11.85 20.35 11.8 22.6 11.86C27.56 11.98 29.43 14.14 29.51 19.49C29.57 22.5 29.51 31.15 29.51 31.15H24.14C24.14 27.94 24.15 25.87 24.15 24.36C24.16 22.32 24.16 21.33 24.14 19.96C24.08 17.87 23.48 16.86 21.86 16.68C20.14 16.47 15.36 16.64 15.36 16.64V31.15H9.99V11.96C11.45 11.96 13.13 11.93 14.85 11.90Z"
                                 fill="white" />
                         </svg>
                         <span>Note記事一覧</span>
-                        <i class="fas fa-arrow-right icon-arrow"></i>
+                        <i class="fas fa-arrow-right icon-arrow" aria-hidden="true"></i>
                     </a>
                 </div>
             </div>
         </section>
 
         <!-- Testimonials Section -->
-        <section class="section" style="background: #f8fafc;">
+        <section class="section section--testimonials" aria-labelledby="testimonials-title">
             <div class="container">
-                <h2 class="section-title">Voice</h2>
-                <p class="text-center fade-in-up" style="color: #64748b; margin-bottom: 3rem;">研修を受講された方からのお声</p>
+                <h2 id="testimonials-title" class="section-title">Voice</h2>
+                <p class="section-description text-center fade-in-up">研修を受講された方からのお声</p>
                 <div class="grid-3">
-                    <div class="testimonial-card fade-in-up"
-                        style="background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 5px 20px rgba(0,0,0,0.05);">
-                        <div style="color: var(--warning-color); margin-bottom: 1rem;">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                class="fas fa-star"></i><i class="fas fa-star"></i>
+                    <article class="testimonial-card fade-in-up">
+                        <div class="testimonial-stars" aria-label="5つ星評価">
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
                         </div>
-                        <p style="color: #475569; line-height: 1.8; margin-bottom: 1.5rem;">
+                        <p class="testimonial-text">
                             「今までよく分かっていなかったことが解決できました。とても丁寧に教えていただき良かったです。基本がわかっていなかったので、改めて再確認できたことを怖がらずに活用していこうと思います！」
                         </p>
-                        <p style="font-weight: 600; color: #1e293b;">― 学校法人 事務職員</p>
-                    </div>
-                    <div class="testimonial-card fade-in-up delay-1"
-                        style="background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 5px 20px rgba(0,0,0,0.05);">
-                        <div style="color: var(--warning-color); margin-bottom: 1rem;">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <p class="testimonial-author">― 学校法人 事務職員</p>
+                    </article>
+
+                    <article class="testimonial-card fade-in-up delay-1">
+                        <div class="testimonial-stars" aria-label="5つ星評価">
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
                         </div>
-                        <p style="color: #475569; line-height: 1.8; margin-bottom: 1.5rem;">
-                            「事前に質問を受け付け、それに対する回答や操作方法を教えていただけたので、すぐにでも活用でき、為になりました。あっという間の1時間半でした。」</p>
-                        <p style="font-weight: 600; color: #1e293b;">― 学校法人 事務職員</p>
-                    </div>
-                    <div class="testimonial-card fade-in-up delay-2"
-                        style="background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 5px 20px rgba(0,0,0,0.05);">
-                        <div style="color: var(--warning-color); margin-bottom: 1rem;">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <p class="testimonial-text">
+                            「事前に質問を受け付け、それに対する回答や操作方法を教えていただけたので、すぐにでも活用でき、為になりました。あっという間の1時間半でした。」
+                        </p>
+                        <p class="testimonial-author">― 学校法人 事務職員</p>
+                    </article>
+
+                    <article class="testimonial-card fade-in-up delay-2">
+                        <div class="testimonial-stars" aria-label="5つ星評価">
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
                         </div>
-                        <p style="color: #475569; line-height: 1.8; margin-bottom: 1.5rem;">
-                            「とても丁寧に資料が作られていて、見やすかったです。知らない技を修得できたので機会があれば使ってみます。穏やかで聞きやすいトーンとスピードでした。」</p>
-                        <p style="font-weight: 600; color: #1e293b;">― 学校法人 事務職員</p>
-                    </div>
+                        <p class="testimonial-text">
+                            「とても丁寧に資料が作られていて、見やすかったです。知らない技を修得できたので機会があれば使ってみます。穏やかで聞きやすいトーンとスピードでした。」
+                        </p>
+                        <p class="testimonial-author">― 学校法人 事務職員</p>
+                    </article>
                 </div>
             </div>
         </section>
 
-
-
         <!-- Footer -->
-        <footer id="contact" class="footer">
+        <footer id="contact" class="footer" role="contentinfo">
             <div class="container">
                 <div class="footer-contact fade-in-up">
                     <h3>Contact</h3>
                     <div class="contact-links">
                         <a href="mailto:pulley.job2022@gmail.com" class="contact-link">
-                            <i class="fas fa-envelope"></i>
+                            <i class="fas fa-envelope" aria-hidden="true"></i>
                             <span>pulley.job2022@gmail.com</span>
                         </a>
-                        <a href="https://note.com/lucky_pulley" target="_blank" class="contact-link">
-                            <svg class="icon-contact-note" viewBox="0 0 40 40" width="20" height="20" fill="none"
-                                xmlns="http://www.w3.org/2000/svg" style="width: 1.25rem; height: 1.25rem;">
+                        <a href="https://note.com/lucky_pulley" target="_blank" rel="noopener noreferrer"
+                            class="contact-link">
+                            <svg viewBox="0 0 40 40" width="20" height="20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                 <rect width="40" height="40" rx="8" fill="#2ea697" />
                                 <path
                                     d="M14.85 11.9C17.55 11.85 20.35 11.8 22.6 11.86C27.56 11.98 29.43 14.14 29.51 19.49C29.57 22.5 29.51 31.15 29.51 31.15H24.14C24.14 27.94 24.15 25.87 24.15 24.36C24.16 22.32 24.16 21.33 24.14 19.96C24.08 17.87 23.48 16.86 21.86 16.68C20.14 16.47 15.36 16.64 15.36 16.64V31.15H9.99V11.96C11.45 11.96 13.13 11.93 14.85 11.90Z"
@@ -528,9 +626,9 @@
                             <span>Note</span>
                         </a>
                         <a href="https://www.youtube.com/channel/UCaCcMmGgIx35Tcfw3DHZLmQ" target="_blank"
-                            class="contact-link">
+                            rel="noopener noreferrer" class="contact-link">
                             <svg viewBox="0 0 24 24" width="24" height="24" fill="#FF0000"
-                                xmlns="http://www.w3.org/2000/svg" style="width: 1.25rem; height: 1.25rem;">
+                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                 <path
                                     d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                             </svg>

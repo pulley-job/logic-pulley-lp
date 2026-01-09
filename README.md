@@ -91,6 +91,7 @@
 | ✅ 理学療法士（臨床5年 + 教員10年以上） |
 | ✅ Google認定教育者 Level 1 & Level 2 |
 | ✅ Google認定トレーナー |
+| ✅ Gemini Certified Educator |
 | ✅ Google Data Analytics Professional |
 | ✅ Professional ChromeOS Administrator |
 
