@@ -498,6 +498,8 @@ button {
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     /* Firefox */
+    align-items: stretch;
+    /* Cards will stretch to match the tallest one */
 }
 
 .testimonial-track::-webkit-scrollbar {
@@ -513,7 +515,8 @@ button {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    height: 100%;
+    height: auto;
+    /* Let flex/stretch handle height */
     /* 3 cards view calculation: (100% - (gap * 2)) / 3 */
     flex: 0 0 calc((100% - (var(--spacing-lg) * 2)) / 3);
     scroll-snap-align: start;
@@ -578,6 +581,7 @@ button {
     font-size: 1.2rem;
     transition: all var(--transition-base);
     border: 1px solid rgb(0 0 0 / 5%);
+    cursor: pointer;
 }
 
 .slider-btn:hover {
@@ -608,6 +612,7 @@ button {
         padding: 1.5rem;
     }
 }
+
 
 /* ==========================================================================
    8. Cards & Media
