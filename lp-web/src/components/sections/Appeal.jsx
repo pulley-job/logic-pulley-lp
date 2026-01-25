@@ -5,7 +5,7 @@ import { FaQuoteLeft, FaQuoteRight } from 'react-icons/fa';
 
 const Appeal = () => {
     return (
-        <Section id="appeal" className="bg-white" title="To Mr. Narahashi">
+        <Section id="appeal" className="bg-white" title="To the Hiring Team">
             <div className="max-w-4xl mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -22,7 +22,7 @@ const Appeal = () => {
                                 なぜ私が御社に必要なのか
                             </h3>
                             <p className="text-gray-700 leading-loose text-lg">
-                                楢橋様がインタビューで仰っていた<strong className="bg-yellow-100 px-1">「高尚な戦略だけでなく、現場に入り込む泥臭さが必要」</strong>という言葉に、教育現場に身を置く者として強く共感しました。
+                                企業のDX推進においてよく言われる<strong className="bg-yellow-100 px-1">「高尚な戦略だけでなく、現場に入り込む泥臭さが必要」</strong>という言葉に、教育現場に身を置く者として強く共感しました。
                             </p>
                             <p className="text-gray-700 leading-loose text-lg mt-4">
                                 私は11年間、理学療法士養成校の教員として勤務する傍ら、Google認定トレーナーとして「変わりたくない現場」の意識変革と向き合ってきました。
