@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <?!= include('styles'); ?>
+</head>
+<body>
+  <div class="app-container">
+    <!-- ヘッダー -->
+    <header class="app-header">
+      <div class="header-content">
+        <h1 class="app-title">
+          <span class="title-icon">📚</span>
+          国試夢想ダイナミック・データベース
+        </h1>
+        <button class="settings-btn" onclick="openSettings()">
+          <span>⚙️</span> 設定
+        </button>
+      </div>
+    </header>
+
+    <!-- タブナビゲーション -->
+    <nav class="tab-nav">
+      <button class="tab-btn active" data-tab="search" onclick="switchTab('search')">
+        🔍 検索
+      </button>
+      <button class="tab-btn" data-tab="preview" onclick="switchTab('preview')">
+        📄 プレビュー
+      </button>
+      <button class="tab-btn" data-tab="export" onclick="switchTab('export')">
+        📤 エクスポート
+      </button>
+      <button class="tab-btn" data-tab="import" onclick="switchTab('import')">
+        📥 インポート
+      </button>
+    </nav>
+
+    <!-- メインコンテンツ -->
+    <main class="main-content">
+      <!-- 検索タブ -->
+      <div id="search-tab" class="tab-content active">
+        <?!= include('search'); ?>
+      </div>
+
+      <!-- プレビュータブ -->
+      <div id="preview-tab" class="tab-content">
+        <?!= include('preview'); ?>
+      </div>
+
+      <!-- エクスポートタブ -->
+      <div id="export-tab" class="tab-content">
+        <?!= include('export'); ?>
+      </div>
+
+      <!-- インポートタブ -->
+      <div id="import-tab" class="tab-content">
+        <?!= include('import'); ?>
+      </div>
+    </main>
+
+    <!-- 設定モーダル -->
+    <div id="settings-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>⚙️ 設定</h2>
+          <button class="close-btn" onclick="closeSettings()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="spreadsheet-id">スプレッドシートID</label>
+            <input type="text" id="spreadsheet-id" placeholder="スプレッドシートのIDを入力">
+            <p class="help-text">問題マスターが格納されているスプレッドシートのIDを設定してください</p>
+          </div>
+          <button class="btn btn-primary" onclick="saveSettings()">保存</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ローディングオーバーレイ -->
+    <div id="loading-overlay" class="loading-overlay">
+      <div class="loading-spinner"></div>
+      <p class="loading-text">処理中...</p>
+    </div>
+
+    <!-- トースト通知 -->
+    <div id="toast-container" class="toast-container"></div>
+  </div>
+
+  <script>
+    // グローバル状態
+    const state = {
+      selectedQuestions: [],
+      searchResults: [],
+      categories: null,
+      years: []
+    };
+
+    // 初期化
+    document.addEventListener('DOMContentLoaded', function() {
+      initApp();
+    });
+
+    async function initApp() {
+      showLoading('初期化中...');
+      try {
+        // 設定確認
+        const config = await callServer('getConfig');
+        if (!config.isConfigured) {
+          hideLoading();
+          showToast('スプレッドシートIDを設定してください', 'warning');
+          openSettings();
+          return;
+        }
+
+        // カテゴリ読み込み
+        const catResult = await callServer('getCategories');
+        if (catResult.success) {
+          state.categories = catResult.data;
+          populateCategorySelects();
+        }
+
+        // 年度読み込み
+        const yearResult = await callServer('getYears');
+        if (yearResult.success) {
+          state.years = yearResult.data;
+          populateYearSelect();
+        }
+
+        hideLoading();
+        showToast('初期化完了', 'success');
+      } catch (error) {
+        hideLoading();
+        showToast('初期化エラー: ' + error.message, 'error');
+      }
+    }
+
+    // タブ切り替え
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tab === tabName);
+      });
+      document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.toggle('active', content.id === tabName + '-tab');
+      });
+    }
+
+    // 設定モーダル
+    function openSettings() {
+      document.getElementById('settings-modal').classList.add('show');
+    }
+
+    function closeSettings() {
+      document.getElementById('settings-modal').classList.remove('show');
+    }
+
+    async function saveSettings() {
+      const id = document.getElementById('spreadsheet-id').value.trim();
+      if (!id) {
+        showToast('スプレッドシートIDを入力してください', 'error');
+        return;
+      }
+
+      showLoading('保存中...');
+      try {
+        await callServer('setSpreadsheetId', id);
+        closeSettings();
+        hideLoading();
+        showToast('設定を保存しました', 'success');
+        initApp();
+      } catch (error) {
+        hideLoading();
+        showToast('保存エラー: ' + error.message, 'error');
+      }
+    }
+
+    // ローディング表示
+    function showLoading(message = '処理中...') {
+      document.querySelector('.loading-text').textContent = message;
+      document.getElementById('loading-overlay').classList.add('show');
+    }
+
+    function hideLoading() {
+      document.getElementById('loading-overlay').classList.remove('show');
+    }
+
+    // トースト通知
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = `toast toast-${type}`;
+      toast.innerHTML = `
+        <span class="toast-icon">${getToastIcon(type)}</span>
+        <span class="toast-message">${message}</span>
+      `;
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.classList.add('show');
+      }, 10);
+
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    function getToastIcon(type) {
+      const icons = {
+        success: '✅',
+        error: '❌',
+        warning: '⚠️',
+        info: 'ℹ️'
+      };
+      return icons[type] || icons.info;
+    }
+
+    // サーバー呼び出しヘルパー
+    function callServer(functionName, ...args) {
+      return new Promise((resolve, reject) => {
+        google.script.run
+          .withSuccessHandler(resolve)
+          .withFailureHandler(reject)
+          [functionName](...args);
+      });
+    }
+
+    // カテゴリセレクト更新
+    function populateCategorySelects() {
+      if (!state.categories) return;
+
+      const majorSelect = document.getElementById('major-category');
+      if (majorSelect) {
+        majorSelect.innerHTML = '<option value="">すべて</option>';
+        state.categories.major.forEach(cat => {
+          majorSelect.innerHTML += `<option value="${cat}">${cat}</option>`;
+        });
+      }
+    }
+
+    // 年度セレクト更新
+    function populateYearSelect() {
+      const yearContainer = document.getElementById('year-checkboxes');
+      if (yearContainer) {
+        yearContainer.innerHTML = '';
+        state.years.forEach(year => {
+          yearContainer.innerHTML += `
+            <label class="checkbox-label">
+              <input type="checkbox" name="year" value="${year}">
+              第${year}回
+            </label>
+          `;
+        });
+      }
+    }
+
+    // 中分類更新
+    function updateMiddleCategory() {
+      const major = document.getElementById('major-category').value;
+      const middleSelect = document.getElementById('middle-category');
+      
+      middleSelect.innerHTML = '<option value="">すべて</option>';
+      
+      if (major && state.categories && state.categories.middle[major]) {
+        state.categories.middle[major].forEach(cat => {
+          middleSelect.innerHTML += `<option value="${cat}">${cat}</option>`;
+        });
+      }
+      
+      updateMinorCategory();
+    }
+
+    // 小分類更新
+    function updateMinorCategory() {
+      const major = document.getElementById('major-category').value;
+      const middle = document.getElementById('middle-category').value;
+      const minorSelect = document.getElementById('minor-category');
+      
+      minorSelect.innerHTML = '<option value="">すべて</option>';
+      
+      if (major && middle && state.categories) {
+        const key = `${major}|${middle}`;
+        if (state.categories.minor[key]) {
+          state.categories.minor[key].forEach(cat => {
+            minorSelect.innerHTML += `<option value="${cat}">${cat}</option>`;
+          });
+        }
+      }
+    }
+  </script>
+</body>
+</html>

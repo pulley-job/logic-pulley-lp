@@ -1,0 +1,139 @@
+<!-- プレビュータブ -->
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">📄 プレビュー</h2>
+        <div class="btn-group">
+            <select id="preview-type" onchange="renderPreview()">
+                <option value="questions">問題のみ</option>
+                <option value="full">解答付き問題集</option>
+                <option value="answers">解答のみ</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="preview-info" class="result-summary" style="display: none;">
+        <span>選択中: <span id="preview-count">0</span>件</span>
+        <div class="btn-group">
+            <button class="btn btn-sm btn-outline" onclick="clearPreview()">クリア</button>
+            <button class="btn btn-sm btn-success" onclick="goToExport()">エクスポートへ →</button>
+        </div>
+    </div>
+
+    <div id="preview-empty" class="empty-state">
+        <div class="empty-state-icon">📋</div>
+        <p class="empty-state-text">検索タブから問題を選択してください</p>
+    </div>
+
+    <div id="preview-container" class="preview-container" style="display: none;">
+        <!-- 動的に生成 -->
+    </div>
+</div>
+
+<script>
+    // プレビュー描画
+    function renderPreview() {
+        const container = document.getElementById('preview-container');
+        const emptyState = document.getElementById('preview-empty');
+        const info = document.getElementById('preview-info');
+        const type = document.getElementById('preview-type').value;
+
+        if (state.selectedQuestions.length === 0) {
+            container.style.display = 'none';
+            emptyState.style.display = 'block';
+            info.style.display = 'none';
+            return;
+        }
+
+        // 選択された問題を取得
+        const selectedQuestions = state.searchResults.filter(q =>
+            state.selectedQuestions.includes(q.id)
+        );
+
+        document.getElementById('preview-count').textContent = selectedQuestions.length;
+
+        let html = '';
+        selectedQuestions.forEach((q, index) => {
+            html += createPreviewQuestion(q, index + 1, type);
+        });
+
+        container.innerHTML = html;
+        container.style.display = 'block';
+        emptyState.style.display = 'none';
+        info.style.display = 'flex';
+    }
+
+    // プレビュー用問題生成
+    function createPreviewQuestion(question, number, type) {
+        let html = '<div class="preview-question">';
+
+        if (type === 'questions' || type === 'full') {
+            // 問題ヘッダー
+            html += `
+        <div class="preview-header">
+          問${number}（${question.examNumber} ${question.session} 問${question.questionNumber}）
+        </div>
+      `;
+
+            // カテゴリ
+            const categories = [question.majorCategory, question.middleCategory, question.minorCategory]
+                .filter(Boolean).join(' > ');
+            if (categories) {
+                html += `<div class="preview-category">【${categories}】</div>`;
+            }
+
+            // 問題文
+            html += `<div class="preview-text">${escapeHtml(question.questionText)}</div>`;
+
+            // 画像
+            if (question.imageUrl) {
+                html += `<img src="${question.imageUrl}" class="preview-image" alt="問題画像">`;
+            }
+
+            // 選択肢
+            html += '<ol class="preview-choices">';
+            const choices = [question.choice1, question.choice2, question.choice3, question.choice4, question.choice5]
+                .filter(Boolean);
+            choices.forEach((choice, i) => {
+                html += `<li>${i + 1}. ${escapeHtml(choice)}</li>`;
+            });
+            html += '</ol>';
+        }
+
+        if (type === 'answers' || type === 'full') {
+            html += `
+        <div class="preview-answer">
+          <strong>【解答】 ${question.correctAnswer}</strong>
+          ${question.explanation ? `<p style="margin-top: 8px;">${escapeHtml(question.explanation)}</p>` : ''}
+        </div>
+      `;
+        }
+
+        html += '</div>';
+        return html;
+    }
+
+    // HTMLエスケープ
+    function escapeHtml(text) {
+        if (!text) return '';
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // プレビュークリア
+    function clearPreview() {
+        state.selectedQuestions = [];
+        renderPreview();
+        showToast('プレビューをクリアしました', 'info');
+    }
+
+    // エクスポートへ移動
+    function goToExport() {
+        if (state.selectedQuestions.length === 0) {
+            showToast('問題を選択してください', 'warning');
+            return;
+        }
+        switchTab('export');
+        updateExportInfo();
+    }
+</script>

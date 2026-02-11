@@ -1,0 +1,174 @@
+<!-- インポートタブ -->
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">📥 インポート</h2>
+    </div>
+
+    <div style="margin-bottom: 24px;">
+        <p style="margin-bottom: 16px; color: var(--text-muted);">
+            スプレッドシート形式で問題を一括登録できます。<br>
+            まずはテンプレートをダウンロードして、フォーマットに従って問題を入力してください。
+        </p>
+
+        <button class="btn btn-primary" onclick="createTemplate()">
+            📋 インポートテンプレートを作成
+        </button>
+    </div>
+
+    <hr style="margin: 24px 0; border: none; border-top: 1px solid var(--border-color);">
+
+    <!-- インポート実行 -->
+    <div class="form-group">
+        <label for="import-spreadsheet-id">インポート元スプレッドシートID</label>
+        <input type="text" id="import-spreadsheet-id" placeholder="スプレッドシートのIDを入力">
+        <p class="help-text">
+            テンプレートに問題を入力後、そのスプレッドシートのIDを入力してください
+        </p>
+    </div>
+
+    <button class="btn btn-success btn-lg" onclick="executeImport()">
+        📥 インポート実行
+    </button>
+
+    <!-- インポート結果 -->
+    <div id="import-result" class="card" style="display: none; margin-top: 24px;">
+        <div class="card-header">
+            <h3 class="card-title">📊 インポート結果</h3>
+        </div>
+        <div id="import-result-content">
+            <!-- 動的に生成 -->
+        </div>
+    </div>
+</div>
+
+<!-- テンプレート作成結果モーダル -->
+<div id="template-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>📋 テンプレート作成完了</h2>
+            <button class="close-btn" onclick="closeTemplateModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p style="margin-bottom: 16px;">
+                インポート用テンプレートを作成しました。
+            </p>
+            <div id="template-info">
+                <!-- 動的に生成 -->
+            </div>
+            <div style="margin-top: 16px;">
+                <p style="font-size: 0.9rem; color: var(--text-muted);">
+                    テンプレートに問題を入力後、このスプレッドシートのIDを使ってインポートしてください。
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // テンプレート作成
+    async function createTemplate() {
+        showLoading('テンプレートを作成中...');
+
+        try {
+            const result = await callServer('createImportTemplate');
+
+            if (result.success) {
+                displayTemplateInfo(result.data);
+                showToast('テンプレートを作成しました', 'success');
+            } else {
+                showToast('テンプレート作成エラー: ' + result.error, 'error');
+            }
+        } catch (error) {
+            showToast('テンプレート作成エラー: ' + error.message, 'error');
+        }
+
+        hideLoading();
+    }
+
+    // テンプレート情報表示
+    function displayTemplateInfo(data) {
+        const infoDiv = document.getElementById('template-info');
+
+        infoDiv.innerHTML = `
+      <div style="background: var(--bg-color); padding: 16px; border-radius: var(--border-radius); margin-bottom: 16px;">
+        <p style="margin-bottom: 8px;"><strong>ファイル名:</strong> ${data.name}</p>
+        <p style="margin-bottom: 8px;"><strong>スプレッドシートID:</strong></p>
+        <input type="text" value="${data.spreadsheetId}" readonly 
+               style="width: 100%; margin-bottom: 8px;" onclick="this.select()">
+      </div>
+      <a href="${data.url}" target="_blank" class="btn btn-primary" style="width: 100%;">
+        📄 スプレッドシートを開く
+      </a>
+    `;
+
+        // インポート用フィールドに自動入力
+        document.getElementById('import-spreadsheet-id').value = data.spreadsheetId;
+
+        document.getElementById('template-modal').classList.add('show');
+    }
+
+    // テンプレートモーダルを閉じる
+    function closeTemplateModal() {
+        document.getElementById('template-modal').classList.remove('show');
+    }
+
+    // インポート実行
+    async function executeImport() {
+        const spreadsheetId = document.getElementById('import-spreadsheet-id').value.trim();
+
+        if (!spreadsheetId) {
+            showToast('スプレッドシートIDを入力してください', 'error');
+            return;
+        }
+
+        showLoading('インポート中...');
+
+        try {
+            const result = await callServer('importQuestions', spreadsheetId);
+
+            if (result.success) {
+                displayImportResult(result.data);
+                showToast('インポートが完了しました', 'success');
+            } else {
+                showToast('インポートエラー: ' + result.error, 'error');
+            }
+        } catch (error) {
+            showToast('インポートエラー: ' + error.message, 'error');
+        }
+
+        hideLoading();
+    }
+
+    // インポート結果表示
+    function displayImportResult(data) {
+        const resultDiv = document.getElementById('import-result');
+        const content = document.getElementById('import-result-content');
+
+        let html = `
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 16px;">
+        <div style="background: rgba(40, 167, 69, 0.1); padding: 16px; border-radius: var(--border-radius); text-align: center;">
+          <div style="font-size: 2rem; font-weight: bold; color: var(--success-color);">${data.success}</div>
+          <div style="color: var(--text-muted);">成功</div>
+        </div>
+        <div style="background: rgba(220, 53, 69, 0.1); padding: 16px; border-radius: var(--border-radius); text-align: center;">
+          <div style="font-size: 2rem; font-weight: bold; color: var(--danger-color);">${data.failed}</div>
+          <div style="color: var(--text-muted);">失敗</div>
+        </div>
+      </div>
+    `;
+
+        if (data.errors && data.errors.length > 0) {
+            html += `
+        <div style="margin-top: 16px;">
+          <h4 style="margin-bottom: 8px;">エラー詳細</h4>
+          <ul style="padding-left: 20px; color: var(--danger-color);">
+            ${data.errors.map(e => `<li>行 ${e.row}: ${e.message}</li>`).join('')}
+          </ul>
+        </div>
+      `;
+        }
+
+        content.innerHTML = html;
+        resultDiv.style.display = 'block';
+    }
+</script>

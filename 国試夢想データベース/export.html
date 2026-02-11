@@ -1,0 +1,137 @@
+<!-- エクスポートタブ -->
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">📤 エクスポート</h2>
+    </div>
+
+    <div id="export-empty" class="empty-state">
+        <div class="empty-state-icon">📤</div>
+        <p class="empty-state-text">検索タブから問題を選択してください</p>
+    </div>
+
+    <div id="export-form" style="display: none;">
+        <div class="result-summary">
+            <span>エクスポート対象: <span id="export-count">0</span>件</span>
+        </div>
+
+        <!-- 出力タイプ選択 -->
+        <div class="form-group">
+            <label>出力タイプ</label>
+            <div class="checkbox-group">
+                <label class="checkbox-label" style="padding: 12px 20px;">
+                    <input type="radio" name="export-type" value="questions" checked>
+                    📝 問題のみ
+                </label>
+                <label class="checkbox-label" style="padding: 12px 20px;">
+                    <input type="radio" name="export-type" value="answers">
+                    ✅ 解答のみ
+                </label>
+                <label class="checkbox-label" style="padding: 12px 20px;">
+                    <input type="radio" name="export-type" value="full">
+                    📚 解答付き問題集
+                </label>
+            </div>
+        </div>
+
+        <!-- 出力形式選択 -->
+        <div class="form-group">
+            <label>出力形式</label>
+            <div class="checkbox-group">
+                <label class="checkbox-label" style="padding: 12px 20px;">
+                    <input type="radio" name="export-format" value="googledoc" checked>
+                    📄 Googleドキュメント
+                </label>
+                <label class="checkbox-label" style="padding: 12px 20px;">
+                    <input type="radio" name="export-format" value="pdf">
+                    📕 PDF
+                </label>
+                <label class="checkbox-label" style="padding: 12px 20px;">
+                    <input type="radio" name="export-format" value="word">
+                    📘 Word
+                </label>
+            </div>
+        </div>
+
+        <button class="btn btn-success btn-lg" onclick="executeExport()">
+            📤 エクスポート実行
+        </button>
+    </div>
+
+    <!-- エクスポート結果 -->
+    <div id="export-result" class="card" style="display: none; margin-top: 24px;">
+        <div class="card-header">
+            <h3 class="card-title">✅ エクスポート完了</h3>
+        </div>
+        <div id="export-result-content">
+            <!-- 動的に生成 -->
+        </div>
+    </div>
+</div>
+
+<script>
+    // エクスポート情報更新
+    function updateExportInfo() {
+        const emptyState = document.getElementById('export-empty');
+        const form = document.getElementById('export-form');
+
+        if (state.selectedQuestions.length === 0) {
+            emptyState.style.display = 'block';
+            form.style.display = 'none';
+        } else {
+            emptyState.style.display = 'none';
+            form.style.display = 'block';
+            document.getElementById('export-count').textContent = state.selectedQuestions.length;
+        }
+    }
+
+    // エクスポート実行
+    async function executeExport() {
+        if (state.selectedQuestions.length === 0) {
+            showToast('問題を選択してください', 'warning');
+            return;
+        }
+
+        const type = document.querySelector('input[name="export-type"]:checked').value;
+        const format = document.querySelector('input[name="export-format"]:checked').value;
+
+        showLoading('エクスポート中...');
+
+        try {
+            const result = await callServer('exportQuestions', state.selectedQuestions, format, type);
+
+            if (result.success) {
+                displayExportResult(result.data);
+                showToast('エクスポートが完了しました', 'success');
+            } else {
+                showToast('エクスポートエラー: ' + result.error, 'error');
+            }
+        } catch (error) {
+            showToast('エクスポートエラー: ' + error.message, 'error');
+        }
+
+        hideLoading();
+    }
+
+    // エクスポート結果表示
+    function displayExportResult(data) {
+        const resultDiv = document.getElementById('export-result');
+        const content = document.getElementById('export-result-content');
+
+        const typeLabels = {
+            'googledoc': 'Googleドキュメント',
+            'pdf': 'PDF',
+            'word': 'Word'
+        };
+
+        content.innerHTML = `
+      <p style="margin-bottom: 16px;">
+        <strong>${data.name}</strong> を作成しました。
+      </p>
+      <a href="${data.url}" target="_blank" class="btn btn-primary">
+        ${typeLabels[data.type] || 'ファイル'}を開く →
+      </a>
+    `;
+
+        resultDiv.style.display = 'block';
+    }
+</script>

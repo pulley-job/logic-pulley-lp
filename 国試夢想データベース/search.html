@@ -1,0 +1,268 @@
+<!-- 検索タブ -->
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">🔍 問題検索</h2>
+    </div>
+
+    <form id="search-form" onsubmit="executeSearch(event)">
+        <!-- 年度選択 -->
+        <div class="form-group">
+            <label>年度</label>
+            <div id="year-checkboxes" class="checkbox-group">
+                <!-- 動的に生成 -->
+            </div>
+        </div>
+
+        <!-- 時間帯・分類 -->
+        <div class="form-row">
+            <div class="form-group">
+                <label>時間帯</label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="session" value="both" checked> 両方
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="session" value="AM"> AM
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="session" value="PM"> PM
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="major-category">大分類</label>
+                <select id="major-category" onchange="updateMiddleCategory()">
+                    <option value="">すべて</option>
+                    <option value="実地">実地</option>
+                    <option value="専門">専門</option>
+                    <option value="基礎">基礎</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="middle-category">中分類</label>
+                <select id="middle-category" onchange="updateMinorCategory()">
+                    <option value="">すべて</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="minor-category">小分類</label>
+                <select id="minor-category">
+                    <option value="">すべて</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="difficulty">難易度</label>
+                <select id="difficulty">
+                    <option value="all">すべて</option>
+                    <option value="A">A（易）</option>
+                    <option value="B">B（普通）</option>
+                    <option value="C">C（難）</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="keyword">キーワード</label>
+                <input type="text" id="keyword" placeholder="問題文・選択肢・解説を検索">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="checkbox-label">
+                <input type="checkbox" id="original-only"> 自作問題のみ表示
+            </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg">
+            🔍 検索実行
+        </button>
+    </form>
+</div>
+
+<!-- 検索結果 -->
+<div class="card" id="search-results-card" style="display: none;">
+    <div class="result-summary">
+        <span class="result-count">
+            検索結果: <span id="result-count">0</span>件
+            （選択中: <span id="selected-count">0</span>件）
+        </span>
+        <div class="selection-actions">
+            <button class="btn btn-sm btn-outline" onclick="selectAll()">全選択</button>
+            <button class="btn btn-sm btn-outline" onclick="deselectAll()">選択解除</button>
+            <button class="btn btn-sm btn-primary" onclick="addToPreview()">プレビューに追加</button>
+        </div>
+    </div>
+
+    <div class="question-list" id="question-list">
+        <!-- 動的に生成 -->
+    </div>
+</div>
+
+<script>
+    // 検索実行
+    async function executeSearch(event) {
+        event.preventDefault();
+
+        // 選択された年度を取得
+        const yearCheckboxes = document.querySelectorAll('input[name="year"]:checked');
+        const years = Array.from(yearCheckboxes).map(cb => parseInt(cb.value));
+
+        const criteria = {
+            years: years,
+            session: document.querySelector('input[name="session"]:checked').value,
+            majorCategories: getSelectedValue('major-category'),
+            middleCategories: getSelectedValue('middle-category'),
+            minorCategories: getSelectedValue('minor-category'),
+            difficulty: document.getElementById('difficulty').value,
+            originalOnly: document.getElementById('original-only').checked,
+            keyword: document.getElementById('keyword').value
+        };
+
+        showLoading('検索中...');
+
+        try {
+            const result = await callServer('searchQuestions', criteria);
+
+            if (result.success) {
+                state.searchResults = result.data.questions;
+                displaySearchResults(result.data);
+            } else {
+                showToast('検索エラー: ' + result.error, 'error');
+            }
+        } catch (error) {
+            showToast('検索エラー: ' + error.message, 'error');
+        }
+
+        hideLoading();
+    }
+
+    function getSelectedValue(selectId) {
+        const value = document.getElementById(selectId).value;
+        return value ? [value] : [];
+    }
+
+    // 検索結果表示
+    function displaySearchResults(data) {
+        const card = document.getElementById('search-results-card');
+        const list = document.getElementById('question-list');
+
+        document.getElementById('result-count').textContent = data.total;
+        document.getElementById('selected-count').textContent = 0;
+
+        if (data.total === 0) {
+            list.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">🔍</div>
+          <p class="empty-state-text">条件に一致する問題が見つかりませんでした</p>
+        </div>
+      `;
+        } else {
+            list.innerHTML = data.questions.map(q => createQuestionItem(q)).join('');
+        }
+
+        card.style.display = 'block';
+    }
+
+    // 問題アイテム生成
+    function createQuestionItem(question) {
+        const tags = [];
+
+        // カテゴリタグ
+        if (question.middleCategory) {
+            tags.push(`<span class="tag tag-category">${question.middleCategory}</span>`);
+        }
+        if (question.minorCategory) {
+            tags.push(`<span class="tag">${question.minorCategory}</span>`);
+        }
+
+        // 難易度タグ
+        if (question.difficulty) {
+            tags.push(`<span class="tag tag-difficulty-${question.difficulty}">難易度${question.difficulty}</span>`);
+        }
+
+        // 画像タグ
+        if (question.imageUrl) {
+            tags.push(`<span class="tag tag-image">📷 画像あり</span>`);
+        }
+
+        return `
+      <div class="question-item" data-id="${question.id}">
+        <div class="question-checkbox">
+          <input type="checkbox" 
+                 onchange="toggleQuestionSelection('${question.id}', this.checked)"
+                 id="q-${question.id}">
+        </div>
+        <div class="question-content">
+          <div class="question-header">
+            <label for="q-${question.id}" class="question-id">
+              ${question.examNumber} ${question.session} 問${question.questionNumber}
+            </label>
+            <div class="question-tags">
+              ${tags.join('')}
+            </div>
+          </div>
+          <p class="question-text">${question.questionText}</p>
+        </div>
+      </div>
+    `;
+    }
+
+    // 選択トグル
+    function toggleQuestionSelection(id, selected) {
+        const item = document.querySelector(`.question-item[data-id="${id}"]`);
+
+        if (selected) {
+            if (!state.selectedQuestions.includes(id)) {
+                state.selectedQuestions.push(id);
+            }
+            item.classList.add('selected');
+        } else {
+            state.selectedQuestions = state.selectedQuestions.filter(qId => qId !== id);
+            item.classList.remove('selected');
+        }
+
+        document.getElementById('selected-count').textContent = state.selectedQuestions.length;
+    }
+
+    // 全選択
+    function selectAll() {
+        document.querySelectorAll('.question-item input[type="checkbox"]').forEach(cb => {
+            cb.checked = true;
+            const id = cb.id.replace('q-', '');
+            if (!state.selectedQuestions.includes(id)) {
+                state.selectedQuestions.push(id);
+            }
+            cb.closest('.question-item').classList.add('selected');
+        });
+        document.getElementById('selected-count').textContent = state.selectedQuestions.length;
+    }
+
+    // 選択解除
+    function deselectAll() {
+        document.querySelectorAll('.question-item input[type="checkbox"]').forEach(cb => {
+            cb.checked = false;
+            cb.closest('.question-item').classList.remove('selected');
+        });
+        state.selectedQuestions = [];
+        document.getElementById('selected-count').textContent = 0;
+    }
+
+    // プレビューに追加
+    function addToPreview() {
+        if (state.selectedQuestions.length === 0) {
+            showToast('問題を選択してください', 'warning');
+            return;
+        }
+
+        // プレビュータブに切り替えてデータを渡す
+        switchTab('preview');
+        renderPreview();
+    }
+</script>
